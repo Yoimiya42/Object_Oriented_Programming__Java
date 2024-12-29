@@ -55,17 +55,17 @@ A ***method*** is associated with an object and is implicitly passed to the obje
 
 - **float** supports a precision of 7 significant digits.Literal value need to be added 'f', like `3.14`.  
   **double** supports a precision of 15 significant digits.
-- Java supports Unicode encoding instead of just ASCII encoding.
+- Java supports ***Unicode*** encoding instead of just ASCII encoding.
 - **false** and **true** are all lowercase.
 
 ### Part II: Reference types
 The reference type used to store reference or memory address of a object, rather than a specific value.
 
-- Class: in java, **class** is a cornerstone of the object-oriented programming. A class defines the blueprint or template for objects, including ***attribute(fields)*** and ***behaviour(methods)***.
+- `Class`: in java, **class** is a cornerstone of the object-oriented programming. A class defines the blueprint or template for objects, including ***attribute(fields)*** and ***behaviour(methods)***.
   *`String` is a class in Java.*
-- Array
-- Enum: 
-- Interface
+- `Array`
+- `Enum`
+- `Interface`
 
 ### Distinction between Primitive and Reference data types:
 
