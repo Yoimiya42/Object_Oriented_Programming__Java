@@ -33,9 +33,9 @@ A ***function*** can be executed independently, with all parameters passed expli
 
 A ***method*** is associated with an object and is implicitly passed to the object calling it, able to operate on the data contained within an instance of a class.
 
-- **C** is a ***procedural*** programming language without object-oriented concepts, so it __only has functions__.
-- **Java** and **C#** are ***object-oriented*** programming language where code blocks(__methods__) are typically part of a class. Static methods behave like functions because they are bounded to the class and cannot access specific instance variables.
-- **C++** and **Python** support __both__ ***procedural*** programming (functions) and ***object-oriented*** programming (methods).
+- **C** is a ***procedural*** programming language without object-oriented concepts, so it <ins>only has functions</ins>.
+- **Java** and **C#** are ***object-oriented*** programming language where code blocks(<ins>methods</ins>) are typically part of a class. Static methods behave like functions because they are bounded to the class and cannot access specific instance variables.
+- **C++** and **Python** support <ins>both</ins> ***procedural*** programming (functions) and ***object-oriented*** programming (methods).
 
 
 ## Data Type in Java
@@ -47,13 +47,13 @@ A ***method*** is associated with an object and is implicitly passed to the obje
 |Integer|byte| 1 byte| -2^7| 2^7-1|0|
 |       |short|	2 bytes| -2^15 | 2^15-1| 0|	
 |       | int|	4 bytes	| -2^31 |2^31-1| 0|
-|       |long| 8 bytes | -2^63 | 2^63-1| 0|
+|       |long| 8 bytes | -2^63 | 2^63-1| 0L|
 |Float| float| 4 bytes| 1.175*10^(-38) | 3.403*10^38|0.0f|
 |     |double| 8 bytes| 2.225*10^(-308)|1.798*10^308|0.0|
 |Char | char | 2 bytes| 0| 2^16 -1|0|
 |Boolean|bool| 1 byte | **false** | **true**|_false_| 
 
-- **float** supports a precision of 7 significant digits.Literal value need to be added 'F', like `3.14`.  
+- **float** supports a precision of 7 significant digits.Literal value need to be added 'f', like `3.14`.  
   **double** supports a precision of 15 significant digits.
 - Java supports Unicode encoding instead of just ASCII encoding.
 - **false** and **true** are all lowercase.
