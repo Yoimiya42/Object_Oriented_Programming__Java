@@ -87,21 +87,21 @@ The reference type used to store reference or memory address of a object, rather
 String is a `class` in Java, not a primitive data type. 
 *** <ins>string is immutable</ins>***
 - Modification operations or reassignments just return a new string object.
-  ```
+  ```java
   String str1 = "Computer";
   String str2 = "Computer";
   boolean test = (str1 == str2); // true
   ```    
   str1 and str2 share the same memory address due to the string pool mechanism.
   Now we modify and reassign `str2`:
-  ```
+  ```java
   str2 = str1.substring(0,6).concat("ation"); // "Computation"
   boolean test2 = (str1 == str2); // false
   ```
   `str2` now points to a new object, whereas the original object is still in memory.
 
   we can use C++ to simulate the process:
-  ```
+  ```cpp
   char* str = "immutable";
   char* temp = malloc(12);
   strcpy(temp,str, 6);
@@ -109,7 +109,7 @@ String is a `class` in Java, not a primitive data type.
   str = temp;
   ```
 - We can check the source code of `String` class in Java([String.java](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/String.java)) to see how it is implemented.
-  ```
+  ```java
   public final class String
   {
       private final char value[];
@@ -119,19 +119,19 @@ String is a `class` in Java, not a primitive data type.
 
 ### Methods related to String
 1. Use `+` to concatenate multiple strings or converted string from value;
-   ```
+   ```java
    int century = 21;
    String str1 = "Computer Science";
    String output = str1 + " in the " + century + "st century.";
    // => "Computer Science in the 21st century."
    ```
 2. If you need to put multiple strings together, separated by a delimiter, use the static `join` method.
-   ```
+   ```java
    String path = String.join("/", "https:/", "github.com", "Yoimiya42" );
    // => "https://github.com/Yoimiya42"
    ```
 3. The `split(String regex)` method splits a string into parts along a given boundary.
-   ```
+   ```java
    String[] parts = "Computer Science".split(" ");
    // parts[0] = "Computer"
    // parts[1] = "Science"
@@ -139,34 +139,34 @@ String is a `class` in Java, not a primitive data type.
    yields an array with two elements: `Computer` and `Science`.
 
 4. `.length()` returns the number of chars in a string
-   ```
+   ```java
    String str = "prelude";
    int len = str.length(); // len = 7
    ```
 5. `.charAt(int index)` returns the char at position `n`.
-   ```
+   ```java
    char at6 = "Algorithm".charAt(6); // 't'
    ```
 6. `.indexOf(String str)` returns the position of the first occurrence of `str` in the entire string.
-   ```
+   ```java
    int a = "mathematics".indexOf("at"); // 1
    ```
    which opposes the `lastIndexOf(String str)` method:
-   ```
+   ```java
    int b = "mathematics".lastIndexOf("at"); // 6
    ```
 7. `.substring(int beginIndex, int endIndex)` returns the substring from index `beginIndex` (included) to `endIndex` (excluded).
-   ```
+   ```java
    String substr = "inadequate".substring(2,10); // "adequate"
    ```
 8. `.equals(Object obj)` to indicate whether two strings are equals.
-   ```
+   ```java
    String a = "abc";
    boolean test1 = a.equals("abcd"); // false
    boolean test2 = a.equals("abc");  // true
    ```
    NOTE: Do not use `==` operator! It only determined whether or not the strings are stored in the same location(memory address)
-   ```
+   ```java
    String str1 = "frustrate";
    String str2 = str1;
    String str3 = "frustrate";
@@ -178,20 +178,20 @@ String is a `class` in Java, not a primitive data type.
    ```
    For the `test3`, in Java, when you create a string literal, the JVM checks the **string pool** to see if the string already exists. If it does, the JVM returns a reference to the existing string. If it doesn't, the JVM creates a new string and adds it to the pool.
    If you use the `new` keyword to explicitly create a string, the JVM creates a new string object in the **heap memory**, and the string pool is not used.
-   ```
+   ```java
    String str4 = new String("frustrate");
    boolean test4 = (str1 == str4); // false
    ```
 9. `.compareTo(String str)` compares two strings lexicographically. 
      - Return `0` if the strings are completely equal.
-        ```
+        ```java
         int res1 = "abc".compareTo("abc");   // 0
         ```
      - Return a `negative` value if the `str1 < str2`:
-       ```
+       ```java
        int res2 = "abc".compareTo("abh");   // -3
        ```
      - Return a `positive` value if the `str1 > str2`:
-       ```
+       ```java
        int res3 = "abc".compareTo("aba");   // 1
        ```
