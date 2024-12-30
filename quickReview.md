@@ -1,6 +1,11 @@
 # Java Foundations
+## __Contents__
+- [Basics](#Basics)
+- [DataType in Java](#Data Type in Java)
+- [String](#String)
 
-## Compile and run
+## Basics
+### Compile and run
 
 You compile the file with the following command:
 ```
@@ -12,7 +17,7 @@ Now, launch the program by issuing the following command(remember to leave off t
 java [filename]
 ```
 
-## A simple Java Program
+### A simple Java Program
 ```
 public class className
 {
@@ -27,7 +32,7 @@ public class className
 - `className` must be the same as your file name.
 
 
-## Distinction between Function and Method
+### Distinction between Function and Method
 
 A ***function*** can be executed independently, with all parameters passed explicitly.
 
@@ -75,7 +80,6 @@ The reference type used to store reference or memory address of a object, rather
 |Memory allocation| ***On Stack***| ***On Heap***|
 |`null` or not| Cannot be `null` | Can be `null`|
 |Default value| 0(numbers), `false`(boolean)| `null`|
-
 
 
 ## String
@@ -128,7 +132,7 @@ public final class String
    String path = String.join("/", "https:/", "github.com", "Yoimiya42" );
    // => "https://github.com/Yoimiya42"
    ```
-3. The `split` method splits a string into parts along a given boundary.
+3. The `split(String regex)` method splits a string into parts along a given boundary.
    ```
    String[] parts = "Computer Science".split(" ");
    // parts[0] = "Computer"
@@ -141,20 +145,24 @@ public final class String
    String str = "prelude";
    int len = str.length(); // len = 7
    ```
-5. `.charAt(n)` returns the char at position `n`.
+5. `.charAt(int index)` returns the char at position `n`.
    ```
    char at6 = "Algorithm".charAt(6); // 't'
    ```
-6. `.indexOf(str)` returns the position of the first occurrence of `str` in the entire string.
+6. `.indexOf(String str)` returns the position of the first occurrence of `str` in the entire string.
    ```
-   int a = "hexadecimal".indexOf("decimal"); // 4
+   int a = "mathematics".indexOf("at"); // 1
    ```
-7. `.substring(a, b)` returns the substring from index `a` (included) to `b` (excluded).
+   which opposes the `lastIndexOf(String str)` method:
+   ```
+   int b = "mathematics".lastIndexOf("at"); // 6
+   ```
+7. `.substring(int beginIndex, int endIndex)` returns the substring from index `beginIndex` (included) to `endIndex` (excluded).
    ```
    String substr = "inadequate".substring(2,10); // "adequate"
    ```
-8. `.equals(str)` to indicate whether two strings are equals.
-   ```
+8. `.equals(Object obj)` to indicate whether two strings are equals.
+  ```
    String a = "abc";
    boolean test1 = a.equals("abcd"); // false
    boolean test2 = a.equals("abc");  // true
@@ -171,8 +179,21 @@ public final class String
    boolean test3 = (str1 == str3);  // true 
    ```
    For the `test3`, in Java, when you create a string literal, the JVM checks the **string pool** to see if the string already exists. If it does, the JVM returns a reference to the existing string. If it doesn't, the JVM creates a new string and adds it to the pool.
-   If you use the `new` keyword to create a string, the JVM creates a new string object in the heap memory, and the string pool is not used.
+   If you use the `new` keyword to explicitly create a string, the JVM creates a new string object in the **heap memory**, and the string pool is not used.
    ```
    String str4 = new String("frustrate");
    boolean test4 = (str1 == str4); // false
    ```
+9. `.compareTo(String str)` compares two strings lexicographically. 
+  - Return `0` if the strings are completely equal.
+     ```
+     int res1 = "abc".compareTo("abc");   // 0
+     ```
+  - Return a `negative` value if the `str1 < str2`:
+    ```
+    int res2 = "abc".compareTo("abh");   // -3
+    ```
+  - Return a `positive` value if the `str1 > str2`:
+    ```
+    int res3 = "abc".compareTo("aba");   // 1
+    ```

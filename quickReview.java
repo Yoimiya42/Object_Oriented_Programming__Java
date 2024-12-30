@@ -12,6 +12,12 @@ public class quickReview
 
         System.out.println(test);
         System.out.println(test2);
+
+        int b = "mathematics".lastIndexOf("at"); // 6
+        System.out.println(b);
+
+        int res = "abc".compareTo("abf");
+        System.out.println(res); // -3
     }
 
 }
