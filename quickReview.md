@@ -85,7 +85,7 @@ The reference type used to store reference or memory address of a object, rather
 ## String
 ### Features
 String is a `class` in Java, not a primitive data type. 
-*** <ins>string is immutable</ins>***
+And more than anything, ***<ins>string is immutable</ins>***
 - Modification operations or reassignments just return a new string object.
   ```java
   String str1 = "Computer";
