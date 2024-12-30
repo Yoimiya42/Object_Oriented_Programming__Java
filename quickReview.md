@@ -1,7 +1,7 @@
 # Java Foundations
 ## __Contents__
 - [Basics](#Basics)
-- [DataType in Java](#Data Type in Java)
+- [DataType for Java](#Data-Type-in-Java)
 - [String](#String)
 
 ## Basics
