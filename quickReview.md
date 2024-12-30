@@ -87,37 +87,35 @@ The reference type used to store reference or memory address of a object, rather
 String is a `class` in Java, not a primitive data type. 
 *** <ins>string is immutable</ins>***
 - Modification operations or reassignments just return a new string object.
-```
-String str1 = "Computer";
-String str2 = "Computer";
-boolean test = (str1 == str2); // true
-```    
-str1 and str2 share the same memory address due to the string pool mechanism.
-Now we modify and reassign `str2`:
-```
-str2 = str1.substring(0,6).concat("ation"); // "Computation"
-boolean test2 = (str1 == str2); // false
-```
-`str2` now points to a new object, whereas the original object is still in memory.
+  ```
+  String str1 = "Computer";
+  String str2 = "Computer";
+  boolean test = (str1 == str2); // true
+  ```    
+  str1 and str2 share the same memory address due to the string pool mechanism.
+  Now we modify and reassign `str2`:
+  ```
+  str2 = str1.substring(0,6).concat("ation"); // "Computation"
+  boolean test2 = (str1 == str2); // false
+  ```
+  `str2` now points to a new object, whereas the original object is still in memory.
 
-we can use C++ to simulate the process:
-```
-char* str = "immutable";
-char* temp = malloc(12);
-strcpy(temp,str, 6);
-strcpy(temp+6,"ation",6);
-str = temp;
-```
+  we can use C++ to simulate the process:
+  ```
+  char* str = "immutable";
+  char* temp = malloc(12);
+  strcpy(temp,str, 6);
+  strcpy(temp+6,"ation",6);
+  str = temp;
+  ```
 - We can check the source code of `String` class in Java([String.java](https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/String.java)) to see how it is implemented.
-```
-public final class String
-{
-    private final char value[];
-    /*...*/
-}
-```
-
-
+  ```
+  public final class String
+  {
+      private final char value[];
+      /*...*/
+  }
+  ```
 
 ### Methods related to String
 1. Use `+` to concatenate multiple strings or converted string from value;
@@ -162,7 +160,7 @@ public final class String
    String substr = "inadequate".substring(2,10); // "adequate"
    ```
 8. `.equals(Object obj)` to indicate whether two strings are equals.
-  ```
+   ```
    String a = "abc";
    boolean test1 = a.equals("abcd"); // false
    boolean test2 = a.equals("abc");  // true
@@ -185,15 +183,15 @@ public final class String
    boolean test4 = (str1 == str4); // false
    ```
 9. `.compareTo(String str)` compares two strings lexicographically. 
-  - Return `0` if the strings are completely equal.
-     ```
-     int res1 = "abc".compareTo("abc");   // 0
-     ```
-  - Return a `negative` value if the `str1 < str2`:
-    ```
-    int res2 = "abc".compareTo("abh");   // -3
-    ```
-  - Return a `positive` value if the `str1 > str2`:
-    ```
-    int res3 = "abc".compareTo("aba");   // 1
-    ```
+     - Return `0` if the strings are completely equal.
+        ```
+        int res1 = "abc".compareTo("abc");   // 0
+        ```
+     - Return a `negative` value if the `str1 < str2`:
+       ```
+       int res2 = "abc".compareTo("abh");   // -3
+       ```
+     - Return a `positive` value if the `str1 > str2`:
+       ```
+       int res3 = "abc".compareTo("aba");   // 1
+       ```
