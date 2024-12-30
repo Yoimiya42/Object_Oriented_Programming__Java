@@ -75,3 +75,90 @@ The reference type used to store reference or memory address of a object, rather
 |Memory allocation| ***On Stack***| ***On Heap***|
 |`null` or not| Cannot be `null` | Can be `null`|
 |Default value| 0(numbers), `false`(boolean)| `null`|
+
+
+
+## String
+### Features
+String is a `class` in Java, not a primitive data type. 
+*** <ins>string is immutable</ins>***
+- Reassignment points to a new object.
+```
+String str = "immutable";
+str = "attempt"; 
+```
+`str` now points to a new object, and the original object is still in memory.
+
+- Modification operations return a new string object.
+```
+String str1 = "Computer";
+String str2 = "Computer";
+boolean test = (str1 == str2); // true
+
+str2 = str1.substring(0,6).concat("ation"); // "Computation"
+boolean test2 = (str1 == str2); // false
+```
+
+
+
+### Methods related to String
+1. Use `+` to concatenate multiple strings or converted string from value;
+```
+int century = 21;
+String str1 = "Computer Science";
+String output = str1 + " in the " + century + "st century.";
+// => "Computer Science in the 21st century."
+```
+2. If you need to put multiple strings together, separated by a delimiter, use the static `join` method.
+```
+String path = String.join("/", "https:/", "github.com", "Yoimiya42" );
+// => "https://github.com/Yoimiya42"
+```
+3. The `split` method splits a string into parts along a given boundary.
+```
+String[] parts = "Computer Science".split(" ");
+// parts[0] = "Computer"
+// parts[1] = "Science"
+```
+yields an array with two elements: `Computer` and `Science`.
+
+4. `.length()` returns the number of chars in a string
+```
+String str = "prelude";
+int len = str.length(); // len = 7
+```
+5. `.charAt(n)` returns the char at position `n`.
+```
+char at6 = "Algorithm".charAt(6); // 't'
+```
+6. `.indexOf(str)` returns the position of the first occurrence of `str` in the entire string.
+```
+int a = "hexadecimal".indexOf("decimal"); // 4
+```
+7. `.substring(a, b)` returns the substring from index `a` (included) to `b` (excluded).
+```
+String substr = "inadequate".substring(2,10); // "adequate"
+```
+8. `.equals(str)` to indicate whether two strings are equals.
+```
+String a = "abc";
+boolean test1 = a.equals("abcd"); // false
+boolean test2 = a.equals("abc");  // true
+```
+NOTE: Do not use `==` operator! It only determined whether or not the strings are stored in the same location(memory address)
+```
+String str1 = "frustrate";
+String str2 = str1;
+String str3 = "frustrate";
+
+boolean test1 = (str1 == "frustrate"); // true 
+boolean test2 = (str1 == str2);  // true (str1 and str2 point to the same memory address)
+
+boolean test3 = (str1 == str3);  // true 
+```
+For the `test3`, in Java, when you create a string literal, the JVM checks the string pool to see if the string already exists. If it does, the JVM returns a reference to the existing string. If it doesn't, the JVM creates a new string and adds it to the pool.
+If you use the `new` keyword to create a string, the JVM creates a new string object in the heap memory, and the string pool is not used.
+```
+String str4 = new String("frustrate");
+boolean test4 = (str1 == str4); // false
+```
