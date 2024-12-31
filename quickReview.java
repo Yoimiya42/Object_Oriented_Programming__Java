@@ -18,6 +18,9 @@ public class quickReview
 
         int res = "abc".compareTo("abf");
         System.out.println(res); // -3
+
+        String formatted = String.format("Price: £ %,.1f", 8888.888);
+        System.out.println(formatted); // Price: £ 8,888.9
     }
 
 }

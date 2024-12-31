@@ -3,7 +3,7 @@
 - [Basics](#Basics)
 - [DataType for Java](#Data-Type-in-Java)
 - [String](#String)
-
+- [Array](#Array)
 ## Basics
 ### Compile and run
 
@@ -195,3 +195,107 @@ And more than anything, ***<ins>string is immutable</ins>***
        ```java
        int res3 = "abc".compareTo("aba");   // 1
        ```
+ 10. `String.format(String format, Object... args)` returns a formatted string using the specified format string and arguments.
+     ```java
+     String formatted = String.format("Price: £ %,.1f", 8888.888);
+      // => "Price: £ 8,888.9"
+     ```
+     Also, you can use `System.out.printf()` which follows the venerable conventions from C library to print formatted strings.
+
+
+## Array
+Array is actually an **object** in Java.
+### Features
+- **Same type**. An array is a collection of elements of the same data type.
+- **Fixed size**. The size of an array is fixed and cannot be changed once it is created.
+- **continuous in memory allocation**.
+
+### Declaration
+```java
+// 1. declare and initialize with default values
+dataType[] arrayName = new dataType[int size]; // Template
+// every element is initialized to the default value of the date type.
+int[] arr1 = new int[5]; // [0,0,0,0,0]
+String[] arr2 = new String[3]; // [null, null, null] 
+
+// 2. declare and initialize with specific values by assignment
+int[] arr3 = {5,6,7,8,9};
+```
+### Access Elements using for-each loop
+```java
+for(dataType element: arrayName)  // Template
+```
+example:
+```java
+int[] arr = {1,2,3,4,5};
+for(int i: arr)
+{
+      System.out.println(i);
+}
+```
+To print the whole array, you can use `Arrays.toString(Array)`method.
+```java
+import java.util.Arrays;
+
+int[] arr = {1,2,3,4,5};
+System.out.println(Arrays.toString(arr)); // [1,2,3,4,5]
+```
+For two-dimensional arrays:
+```java
+import java.util.Arrays;
+
+int[][] arr2D = 
+{
+   {1,2,3},
+   {4,5,6},
+   {7,8,9}
+};
+
+for(int[] row : arr2D)
+{
+      System.out.println(Arrays.toString(row));
+}
+// OR
+for(int[] row : arr2D)
+{
+    for(int elem : row)
+    {
+      System.out.print(elem + " ");
+    }
+    System.out.println();
+}
+```
+
+### Array Copying
+```java
+import java.util.Arrays;
+
+int[] arr1 = {2,3,5,8,13};
+int[] arr2 = arr1; // assigned the memory address of arr1 to arr2.
+System.out.println(Arrays.toString(arr2)); // [2,3,5,8,13]
+System.out.println(Arrays.toString(arr2)); // [2,3,5,8,13]
+// arr2 points to the same memory address as arr1
+// If you modify arr2, arr1 will also be modified.
+for(int elem : arr2)
+{
+   elem *=2;
+}
+System.out.println(Arrays.toString(arr1)); // [4,6,10,16,26]
+System.out.println(Arrays.toString(arr2)); // [4,6,10,16,26]
+```   
+If you actually want to copy all values of one array into a new array, use the `Arrays.copyOf(T[] original, int newlength)`method.
+```java
+int[] arr1 = {2,3,5,8,13};
+int[] arr2 = Arrays.copyOf(arr1, arr1.length); // [2,3,5,8,13]
+
+int[] arr3 = Arrays.copyOf(arr1, 2 * arr1.length); // [2,3,5,8,13,0,0,0,0,0] fill the rest with default value.
+```
+Or use `Arrays.copyOfRange(T[] original, int start, int end)` to copy a range of elements.
+```java
+int[] arr1 = {2,3,5,8,13};
+int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
+```
+
+
+
+
