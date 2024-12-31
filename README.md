@@ -4,6 +4,7 @@
 - [DataType for Java](#Data-Type-in-Java)
 - [String](#String)
 - [Array](#Array)
+- [ArrayList](#ArrayList)
 ## Basics
 ### Compile and run
 
@@ -295,6 +296,9 @@ Or use `Arrays.copyOfRange(T[] original, int start, int end)` to copy a range of
 int[] arr1 = {2,3,5,8,13};
 int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
 ```
+
+## ArrayList
+
 
 
 
