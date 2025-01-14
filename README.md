@@ -392,23 +392,23 @@ Given an `ArrayList<Integer> alist`
    Random random1 = new Random(42); // 78, 89, 52, 45, 63...
    Random random2 = new Random(42); // 78, 89, 52, 45, 63...
    ```
-2.1. `nextInt(int bound)` returns a random integer within `[0, bound)`.
-   `nextInt()` returns a random integer wihtin the full range of `int` by default.
-   ```java
-   int randomInt = random.nextInt(100); // [0, 100)
-   ```
-2.2. `nextDouble()` returns a random double value within `[0.0, 1.0)`.
-   ```java
-   double randomDouble = random.nextDouble(); // `[0.0, 1.0)`
-   ```
-   You can use this method to simulate probability events.
-   ``` java
-   boolean probability_50 = random.nextDouble() < 0.5; // 50% probability
-   ```
-2.3. `nextBoolean()` returns a random boolean value `true` or `false`.
-   ``` java
-   boolean randomBoolean = random.nextBoolean(); // true or false
-   ```
+   2.1. `nextInt(int bound)` returns a random integer within `[0, bound)`.
+      `nextInt()` returns a random integer wihtin the full range of `int` by default.
+      ```java
+      int randomInt = random.nextInt(100); // [0, 100)
+      ```
+   2.2. `nextDouble()` returns a random double value within `[0.0, 1.0)`.
+      ```java
+      double randomDouble = random.nextDouble(); // `[0.0, 1.0)`
+      ```
+      You can use this method to simulate probability events.
+      ``` java
+      boolean probability_50 = random.nextDouble() < 0.5; // 50% probability
+      ```
+   2.3. `nextBoolean()` returns a random boolean value `true` or `false`.
+      ``` java
+      boolean randomBoolean = random.nextBoolean(); // true or false
+      ```
  ### Customize random number range `[min, max]`:
  
  1. Formula: Integer within [min, max]
@@ -418,34 +418,34 @@ Given an `ArrayList<Integer> alist`
    (int)((Math.random() * (max - min + 1)) + min;
    ```
    Example：
-      ``` java
-      // Desired range: [0, 50]
-      random.nextInt(51) + 0;
-      (int)(Math.random() * 51);
-      // Desired range: [50, 100]
-      random.nextInt(51) + 50; 
-      (int)(Math.random() * 51) + 50;
-      // Desired range: [-50, 50]
-      random.nextInt(101) - 50;
-      // Desired range: [-100, -50]
-      random.nextInt(51) - 100;
-      // Desired range: [0.0, 10.0]
-      random.nextDouble()
-      ```
+   ``` java
+   // Desired range: [0, 50]
+   random.nextInt(51) + 0;
+   (int)(Math.random() * 51);
+   // Desired range: [50, 100]
+   random.nextInt(51) + 50; 
+   (int)(Math.random() * 51) + 50;
+   // Desired range: [-50, 50]
+   random.nextInt(101) - 50;
+   // Desired range: [-100, -50]
+   random.nextInt(51) - 100;
+   // Desired range: [0.0, 10.0]
+   random.nextDouble()
+   ```
 2. Formula: Double within [min, max]
    ```java
-   
+
    random.nextDouble() * (max - min) + min;
    Math.random() * (max - min) + min;
    ```
    Example:
-      ```java
-      // Desired range: [0.0, 10.0)
-      random.nextDouble() * 10.0;
-      // Desired range: [3.0, 7.0)
-      random.nextDouble() * 4.0 + 3.0;
-      Math.random() * 4.0 + 3.0;
-      // Desired range: [-0.999, 0.999)
-      random.nextDouble() * 1.998 - 0.999;
-      ```
+   ```java
+   // Desired range: [0.0, 10.0)
+   random.nextDouble() * 10.0;
+   // Desired range: [3.0, 7.0)
+   random.nextDouble() * 4.0 + 3.0;
+   Math.random() * 4.0 + 3.0;
+   // Desired range: [-0.999, 0.999)
+   random.nextDouble() * 1.998 - 0.999;
+   ```
 
