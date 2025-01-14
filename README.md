@@ -5,6 +5,7 @@
 - [String](#String)
 - [Array](#Array)
 - [ArrayList](#ArrayList)
+- [Random](#Random)
 ## Basics
 ### Compile and run
 
@@ -298,8 +299,153 @@ int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
 ```
 
 ## ArrayList
+`ArrayList` is a container that only stores **object reference**  rather than primitive types.
+But you can use the **wrapper Class**:
+- `int`     -> `Integer`
+- `double`  -> `Double`
+- `float`   -> `Float`
+- `char`    -> `Character`
+- `boolean` -> `Boolean`  
+- 
+**Autoboxing**: Primitive types -> Object(Wrapper class):
+`alist.add(7)` converts the `int 7` to `Integer 7`
+**Unboxing** : Object(Wrapper class) -> Primitive types:
+`int elem = alist.get(1)` converts the `Integer 1 ` to `in 1 `.  
+
+### **Declaration**
+```java
+import java.util.ArrayList;
+
+ArrayList<Integer> alist = new ArrayList<>();  // 
+ArrayList<String> slist = new ArrayList<>(10); // specify the initial capacity;
+ArrayList<Object> olist = new ArrayList<>();   // any object of defined class by the user. 
+```
+
+### **Methods**
+Given an `ArrayList<Integer> alist` 
+1. `add(E element)` adds an element to the end of the list.
+   `add(int index, E element)` adds an element at the specified index.
+   ```java
+   ArrayList<Integer> alist = new ArrayList<>();
+   alist.add(7); // Automatically boxed from int to Integer
+   alist.add(1, 42);
+   ```
+2. `get(int index)` returns the element at the specified index.
+   ```java
+   int elem = alist.get(1);
+   ```
+3. `set(int index, E element)` replace the element at the specified index with the new element.
+   ```java
+   alist.set(0, 99);
+   ```
+4. `remove(int index)` removes the element at the specified index.
+   `remove(Object obj)` removes the first occurrence of the specified element.
+   ```java
+   alist.remove(1);
+   alist.remove(Integer.valueOf(99));
+   ```
+5. `size()` returns the number of elements in the list.
+   ```java
+   int size = alist.size();
+   ```
+6. `clear()` removes all elements from the list.
+   ```java
+   alist.clear();
+   ```
+7. `isEmpty()` returns `true` if the list is empty.
+   ```java
+   boolean empty = alist.isEmpty();
+   ```
+8. `contains(Object obj)` returns `true` if the list contains the specified element.
+   ```java
+   boolean contain = alist.contains(99);
+   ```
+9. `indexOf(Object obj)` returns the index of the first occurrence of the specified element.
+   `lastIndexOf(Object obj)` returns the index of the last occurrence of the specified element.
+   ```java
+   int index = alist.indexOf(99);
+   ```  
+10. `toArray()` returns an array containing all of the elements in the list.
+    ```java
+    Integer[] arr = alist.toArray(new Integer[alist.size()]);
+    ```
+11. To print the whole ArrayList, just use `System.out.println(alist);`. [_, _, _,...]
 
 
 
 
+
+
+
+## Random
+
+1. `Math.random()` returns a double value within `[0.0, 1.0)`. It is a **static** method provided by the `java.lang.Math` class and can be invoked without a class instance.
+   ```java
+   double random = Math.random(); // [0.0, 1.0) 
+   ```
+2. `Random` class in `java.util` package provides a more flexible way to generate random numbers.
+   You can indicate a certain random sequence by setting a seed value.
+   ```java
+   import java.util.Random;
+   // Random random = new Random(seed); 
+   // random1 and random2 will generate the same sequence of random sequence as they have the same seed.
+   Random random1 = new Random(42); // 78, 89, 52, 45, 63...
+   Random random2 = new Random(42); // 78, 89, 52, 45, 63...
+   ```
+2.1. `nextInt(int bound)` returns a random integer within `[0, bound)`.
+   `nextInt()` returns a random integer wihtin the full range of `int` by default.
+   ```java
+   int randomInt = random.nextInt(100); // [0, 100)
+   ```
+2.2. `nextDouble()` returns a random double value within `[0.0, 1.0)`.
+   ```java
+   double randomDouble = random.nextDouble(); // `[0.0, 1.0)`
+   ```
+   You can use this method to simulate probability events.
+   ``` java
+   boolean probability_50 = random.nextDouble() < 0.5; // 50% probability
+   ```
+2.3. `nextBoolean()` returns a random boolean value `true` or `false`.
+   ``` java
+   boolean randomBoolean = random.nextBoolean(); // true or false
+   ```
+ ### Customize random number range `[min, max]`:
+ 
+ 1. Formula: Integer within [min, max]
+   ```java
+   // 
+   random.nextInt(max - min + 1) + min;
+   (int)((Math.random() * (max - min + 1)) + min;
+   ```
+   Example：
+      ``` java
+      // Desired range: [0, 50]
+      random.nextInt(51) + 0;
+      (int)(Math.random() * 51);
+      // Desired range: [50, 100]
+      random.nextInt(51) + 50; 
+      (int)(Math.random() * 51) + 50;
+      // Desired range: [-50, 50]
+      random.nextInt(101) - 50;
+      // Desired range: [-100, -50]
+      random.nextInt(51) - 100;
+      // Desired range: [0.0, 10.0]
+      random.nextDouble()
+      ```
+2. Formula: Double within [min, max]
+   ```java
+   
+   random.nextDouble() * (max - min) + min;
+   Math.random() * (max - min) + min;
+   ```
+   Example:
+      ```java
+      // Desired range: [0.0, 10.0)
+      random.nextDouble() * 10.0;
+      // Desired range: [3.0, 7.0)
+      random.nextDouble() * 4.0 + 3.0;
+      Math.random() * 4.0 + 3.0;
+      // Desired range: [-0.999, 0.999)
+      random.nextDouble() * 1.998 - 0.999;
+      ```
 
