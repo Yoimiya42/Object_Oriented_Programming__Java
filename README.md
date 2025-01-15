@@ -434,7 +434,7 @@ Given an `ArrayList<Integer> alist`
    ```
 2. Formula: Double within [min, max]
    ```java
-
+   +
    random.nextDouble() * (max - min) + min;
    Math.random() * (max - min) + min;
    ```
