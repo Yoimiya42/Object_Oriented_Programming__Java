@@ -508,11 +508,16 @@ Given an `ArrayList<Integer> alist`
 1. ***Functional in nature***, only produces a result and does not modify its source.
 2. ***Laziness seeking***, like `.filter()`, `.map()` and other **Intermediate operations** are always lazy, do not start processing until a **terminal operation** invoked.
 3. ***Consumable***, a elements of a stream are only visited once during the life of the stream(stream closed once a terminal operation invoked).
+   ```java
+   Stream<Integer> stream = Stream.of(1,2,3,4,5);
+   stream.forEach(System.out::println); // 1,2,3,4,5
+   stream.forEach(System.out::println); // java.lang.IllegalStateException: stream has already been operated upon or closed
+   ```
 
 ### Stream Operations and Pipeline
 #### Step 1: create a stream form a source
-1. **from Collection** 
-   `default Stream<E> stream()` method in the `Collection` interface.
+1. **from Collection**    
+   `default Stream<E> stream()` method in the `Collection` interface.    
    ```java
    import java.util.ArrayList;
    import java.util.stream.Stream;
@@ -520,8 +525,8 @@ Given an `ArrayList<Integer> alist`
    ArrayList<Integer> alist = {9,7,8,2,1,3,4,6,5};
    Stream<Integer> stream = alist.stream();
    ```
-2. **from Array**
-   `static <T> Stream<T> stream(T[] array)` method in the `Arrays` class.
+2. **from Array**    
+   `static <T> Stream<T> stream(T[] array)` method in the `Arrays` class.    
    ```java
 
    import java.util.Arrays;
@@ -530,9 +535,11 @@ Given an `ArrayList<Integer> alist`
    int arr[] = {9,8,7,6,4,3,1,2,5};
    Stream<Integer> stream = Arrays.stream(arr);
    ```
-3. **from Stream Factory Methods(discrete data elements)**
+3. **from Stream Factory Methods(discrete data elements)**    
    ``static IntStream range(int startInclusive, int endExclusive)`` method in the `IntStream` interfaces.
-   Or, ``static <T> Stream<T> of(T... values)`` method in the `Stream` interface.
+
+
+   Or, ``static <T> Stream<T> of(T... values)`` method in the `Stream` interface.    
    ```java
    import java.util.stream.IntStream;
 
@@ -542,6 +549,91 @@ Given an `ArrayList<Integer> alist`
    Stream<String> stream = Stream.of("dog", "cat", "bird");
    ```
 
-#### Step 2: Intermediate Operations
+#### Step 2: Intermediate Operations  
+Usually, the return type is `Stream <T>`.  
+1. `Stream <T> distinct()`
+   return a stream consisting of the distinct elements of this stream.
+2. `Stream <T> filter(Predicate<? super T> predicate)`
+   return a stream consisting of the elements of this stream that match the given predicate.  
+   NOTE: you can use lambda expression to define the predicate.
+3. `Stream <R> map(Function<? super T, ? extends R> mapper)`
+   return a stream consisting of the results of applying the given function to the elements of this stream.
+4. `Stream <T> skip(long n)`
+   return a stream consisting of the remaining elements of this stream after discarding the first `n` elements.
+5. `Stream <T> sorted()`
+   return a stream consisting of the elements of this stream, sorted according to their natural order.
+6. `Stream <T> limit(long maxSize)`
+   return elements stream truncated to be no longer than `maxSize` in length.  
+
 
 #### Step 3: Terminal Operations
+
+- Consumable operation:
+  `forEach()`  
+- Reduction operation:
+  `reduce()`  
+- Collection operation:
+  `collect(Collectors.toList())`  
+  `collect(Collectors.toSet())`  
+- Aggregation operation:
+  `count()`  
+  `max()`  
+  `min()`  
+  `sum()`  
+  `average()`  
+- Short-circuiting operation:
+  `anyMatch()`  
+  `allMatch()`  
+  `findAny()`  
+  `findFirst()`  
+
+#### Example:
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+
+ArrayList<String> list = new ArrayList<>(Arrays.asList(
+             "restrictive"
+            ,"deploy"
+            ,"elegant"
+            ,"gateway"
+            ,"restrictive" // duplicate
+            ,"privilege"
+            ,"authorization"
+            ,"catalogue"
+            ,"elegant"  // duplicate
+            ,"privilege"//duplicate
+            ,"forgery"
+            ,"administrative"
+            ));
+
+list.stream()    // create a stream from a collection
+    .distinct()  // stateful intermediate operation
+    .filter(str -> str.length() > 7) // stateful intermediate operation
+    .map(String::toUpperCase)        // stateful intermediate operation
+    .sorted()                        // stateful intermediate operation
+
+// Example of terminal operation:
+    .forEach(System.out::println);    // consumable terminal operation
+   /* output:
+    * AUTHORIZATION
+    * ADMINISTRATIVE
+    * CATALOGUE
+    * PRIVILEGE
+    * RESTRICTIVE
+   */
+
+    .collect(Collectors.toList());    // collection terminal operation
+   /* output:
+    * [AUTHORIZATION, ADMINISTRATIVE, CATALOGUE, PRIVILEGE, RESTRICTIVE]
+   */
+
+    .count();                        // aggregation terminal operation
+    // output: 5
+
+    .reduce((str1, str2) -> str1 + " " + str2); // reduction terminal operation
+    // output: "AUTHORIZATION ADMINISTRATIVE CATALOGUE PRIVILEGE RESTRICTIVE"
+
+    .anyMatch(str -> str.startWith("A");) // short-circuiting terminal operation
+```

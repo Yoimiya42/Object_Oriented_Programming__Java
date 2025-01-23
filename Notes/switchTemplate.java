@@ -1,5 +1,5 @@
 
-package Notes;
+
 
 public class switchTemplate {
     public static void main(String[] args) {
