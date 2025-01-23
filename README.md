@@ -7,6 +7,7 @@
 - [Random](#Random)
 <!-- - [Generics](#Generics) -->
 - [Container](#Container)
+- [Stream](#Stream)
 ## Basics
 ### Compile and run
 
@@ -516,8 +517,8 @@ Given an `ArrayList<Integer> alist`
 
 ### Stream Operations and Pipeline
 #### Step 1: create a stream form a source
-1. **from Collection**    
-   `default Stream<E> stream()` method in the `Collection` interface.    
+1. **from Collection**      
+   `default Stream<E> stream()` method in the `Collection` interface.      
    ```java
    import java.util.ArrayList;
    import java.util.stream.Stream;
@@ -526,7 +527,7 @@ Given an `ArrayList<Integer> alist`
    Stream<Integer> stream = alist.stream();
    ```
 2. **from Array**    
-   `static <T> Stream<T> stream(T[] array)` method in the `Arrays` class.    
+   `static <T> Stream<T> stream(T[] array)` method in the `Arrays` class.      
    ```java
 
    import java.util.Arrays;
@@ -535,11 +536,11 @@ Given an `ArrayList<Integer> alist`
    int arr[] = {9,8,7,6,4,3,1,2,5};
    Stream<Integer> stream = Arrays.stream(arr);
    ```
-3. **from Stream Factory Methods(discrete data elements)**    
-   ``static IntStream range(int startInclusive, int endExclusive)`` method in the `IntStream` interfaces.
+3. **from Stream Factory Methods(discrete data elements)**      
+   ``static IntStream range(int startInclusive, int endExclusive)`` method in the `IntStream` interfaces.  
 
 
-   Or, ``static <T> Stream<T> of(T... values)`` method in the `Stream` interface.    
+   Or, ``static <T> Stream<T> of(T... values)`` method in the `Stream` interface.      
    ```java
    import java.util.stream.IntStream;
 
@@ -550,30 +551,30 @@ Given an `ArrayList<Integer> alist`
    ```
 
 #### Step 2: Intermediate Operations  
-Usually, the return type is `Stream <T>`.  
-1. `Stream <T> distinct()`
+Usually, the return type is `Stream <T>`.    
+1. `Stream <T> distinct()`  
    return a stream consisting of the distinct elements of this stream.
-2. `Stream <T> filter(Predicate<? super T> predicate)`
+2. `Stream <T> filter(Predicate<? super T> predicate)`  
    return a stream consisting of the elements of this stream that match the given predicate.  
    NOTE: you can use lambda expression to define the predicate.
-3. `Stream <R> map(Function<? super T, ? extends R> mapper)`
+3. `Stream <R> map(Function<? super T, ? extends R> mapper)`  
    return a stream consisting of the results of applying the given function to the elements of this stream.
-4. `Stream <T> skip(long n)`
+4. `Stream <T> skip(long n)`  
    return a stream consisting of the remaining elements of this stream after discarding the first `n` elements.
-5. `Stream <T> sorted()`
+5. `Stream <T> sorted()`  
    return a stream consisting of the elements of this stream, sorted according to their natural order.
-6. `Stream <T> limit(long maxSize)`
+6. `Stream <T> limit(long maxSize)`  
    return elements stream truncated to be no longer than `maxSize` in length.  
 
 
 #### Step 3: Terminal Operations
 
-- Consumable operation:
-  `forEach()`  
-- Reduction operation:
-  `reduce()`  
-- Collection operation:
-  `collect(Collectors.toList())`  
+- Consumable operation:  
+  `forEach()`    
+- Reduction operation:  
+  `reduce()`   
+- Collection operation:  
+  `collect(Collectors.toList())`   
   `collect(Collectors.toSet())`  
 - Aggregation operation:
   `count()`  
@@ -635,5 +636,5 @@ list.stream()    // create a stream from a collection
     .reduce((str1, str2) -> str1 + " " + str2); // reduction terminal operation
     // output: "AUTHORIZATION ADMINISTRATIVE CATALOGUE PRIVILEGE RESTRICTIVE"
 
-    .anyMatch(str -> str.startWith("A");) // short-circuiting terminal operation
+    .anyMatch(str -> str.startWith("A");)       // short-circuiting terminal operation
 ```
