@@ -521,7 +521,6 @@ Given an `ArrayList<Integer> alist`
    `default Stream<E> stream()` method in the `Collection` interface.      
    ```java
    import java.util.ArrayList;
-   import java.util.stream.Stream;
 
    ArrayList<Integer> alist = {9,7,8,2,1,3,4,6,5};
    Stream<Integer> stream = alist.stream();
@@ -531,10 +530,9 @@ Given an `ArrayList<Integer> alist`
    ```java
 
    import java.util.Arrays;
-   import java.util.stream.Stream;
 
    int arr[] = {9,8,7,6,4,3,1,2,5};
-   Stream<Integer> stream = Arrays.stream(arr);
+   IntStream stream = Arrays.stream(arr);
    ```
 3. **from Stream Factory Methods(discrete data elements)**      
    ``static IntStream range(int startInclusive, int endExclusive)`` method in the `IntStream` interfaces.  
@@ -543,7 +541,6 @@ Given an `ArrayList<Integer> alist`
    Or, ``static <T> Stream<T> of(T... values)`` method in the `Stream` interface.      
    ```java
    import java.util.stream.IntStream;
-
    IntStream stream = IntStream.range(1, 10); // [1, 10)
 
    import java.util.stream.Stream;
