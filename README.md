@@ -4,8 +4,9 @@
 - [DataType for Java](#Data-Type-in-Java)
 - [String](#String)
 - [Array](#Array)
-- [ArrayList](#ArrayList)
 - [Random](#Random)
+<!-- - [Generics](#Generics) -->
+- [Container](#Container)
 ## Basics
 ### Compile and run
 
@@ -204,6 +205,58 @@ And more than anything, ***<ins>string is immutable</ins>***
      ```
      Also, you can use `System.out.printf()` which follows the venerable conventions from C library to print formatted strings.
 
+### StringBuilder
+`StringBuilder` is a mutable sequence of characters. It is more efficient than `String` when you need to perform a lot of string manipulation.
+#### Constructor
+```java
+StringBuilder sb = new StringBuilder(); // default capacity is 16
+StringBuilder sb = new StringBuilder(int capacity); // specify the initial capacity
+StringBuilder sb = new StringBuilder(String str); // initialize with a string
+```
+#### Methods
+1. `append(String str`) appends the string representation of the argument to the sequence.
+   Also, you can append the string representation of other data types, e.g., `append(double d)`, `append(int i)`, `append(char[] str, int offset, int len)`.
+   ```java
+   StringBuilder sb = new StringBuilder("Computer");
+   sb.append("Science"); // "ComputerScience"
+
+   char[] arr = {'0', '2', '0', '2', '5', '1'};
+   sb.append(arr, 1, 4); // "ComputerScience2025"
+   ```
+2. `insert(int offset, String str)` inserts the string representation of the argument into the sequence at the specified position.
+   ```java
+   StringBuilder sb = new StringBuilder("Java");
+   sb.insert(4, "Script"); // "JavaScript"
+   ```  
+3. `delete(int start, int end)` removes the characters in a substring `[start, end)`of this sequence.
+   ```java
+   StringBuilder sb = new StringBuilder("JavaScript");
+   sb.delete(4, 10); // "Java"
+   ``` 
+4. `deleteCharAt(int index)` removes the character at the specified position.
+   ```java
+   StringBuilder sb = new StringBuilder("stream");
+   sb.deleteCharAt(2); // "steam"
+   ```
+5. `replace(int start, int end, String str)` replaces the characters in a substring `[start, end)` with the specified string.
+   ```java
+   StringBuilder sb = new StringBuilder("conjunction");
+   sb.replace(0, 3, "dis"); // "disjunction"
+   ```
+6. `reverse()` reverses the sequence of characters in the buffer.
+   ```java
+   StringBuilder sb = new StringBuilder("trap");
+   sb.reverse(); // "part"
+   ```
+7. Methods similar to `String` class:  
+   - `length()`
+   - `charAt(int index)`
+   - `indexOf(String str)`
+   - `substring(int start, int end)`
+   - `toString()`
+   - `setCharAt(int index, char ch)`
+   - `compareTo(StringBuilder sb)`
+
 
 ## Array
 Array is actually an **object** in Java.
@@ -298,85 +351,6 @@ int[] arr1 = {2,3,5,8,13};
 int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
 ```
 
-## ArrayList
-`ArrayList` is a container that only stores **object reference**  rather than primitive types.
-But you can use the **wrapper Class**:
-- `int`     -> `Integer`
-- `double`  -> `Double`
-- `float`   -> `Float`
-- `char`    -> `Character`
-- `boolean` -> `Boolean`  
-- 
-**Autoboxing**: Primitive types -> Object(Wrapper class):
-`alist.add(7)` converts the `int 7` to `Integer 7`
-**Unboxing** : Object(Wrapper class) -> Primitive types:
-`int elem = alist.get(1)` converts the `Integer 1 ` to `in 1 `.  
-
-### **Declaration**
-```java
-import java.util.ArrayList;
-
-ArrayList<Integer> alist = new ArrayList<>();  // 
-ArrayList<String> slist = new ArrayList<>(10); // specify the initial capacity;
-ArrayList<Object> olist = new ArrayList<>();   // any object of defined class by the user. 
-```
-
-### **Methods**
-Given an `ArrayList<Integer> alist` 
-1. `add(E element)` adds an element to the end of the list.
-   `add(int index, E element)` adds an element at the specified index.
-   ```java
-   ArrayList<Integer> alist = new ArrayList<>();
-   alist.add(7); // Automatically boxed from int to Integer
-   alist.add(1, 42);
-   ```
-2. `get(int index)` returns the element at the specified index.
-   ```java
-   int elem = alist.get(1);
-   ```
-3. `set(int index, E element)` replace the element at the specified index with the new element.
-   ```java
-   alist.set(0, 99);
-   ```
-4. `remove(int index)` removes the element at the specified index.
-   `remove(Object obj)` removes the first occurrence of the specified element.
-   ```java
-   alist.remove(1);
-   alist.remove(Integer.valueOf(99));
-   ```
-5. `size()` returns the number of elements in the list.
-   ```java
-   int size = alist.size();
-   ```
-6. `clear()` removes all elements from the list.
-   ```java
-   alist.clear();
-   ```
-7. `isEmpty()` returns `true` if the list is empty.
-   ```java
-   boolean empty = alist.isEmpty();
-   ```
-8. `contains(Object obj)` returns `true` if the list contains the specified element.
-   ```java
-   boolean contain = alist.contains(99);
-   ```
-9. `indexOf(Object obj)` returns the index of the first occurrence of the specified element.
-   `lastIndexOf(Object obj)` returns the index of the last occurrence of the specified element.
-   ```java
-   int index = alist.indexOf(99);
-   ```  
-10. `toArray()` returns an array containing all of the elements in the list.
-    ```java
-    Integer[] arr = alist.toArray(new Integer[alist.size()]);
-    ```
-11. To print the whole ArrayList, just use `System.out.println(alist);`. [_, _, _,...]
-
-
-
-
-
-
-
 ## Random
 
 1. `Math.random()` returns a double value within `[0.0, 1.0)`. It is a **static** method provided by the `java.lang.Math` class and can be invoked without a class instance.
@@ -449,3 +423,125 @@ Given an `ArrayList<Integer> alist`
    random.nextDouble() * 1.998 - 0.999;
    ```
 
+
+## Container
+
+A container class like `ArratList`, `LinkedList`, `HashMap` is used to store multiple objects.  
+
+A container class can store ***object reference*** only, not primitive types.
+But you can use the **wrapper Class**:
+- `int`     -> `Integer`
+- `double`  -> `Double`
+- `float`   -> `Float`
+- `char`    -> `Character`
+- `boolean` -> `Boolean`  
+- 
+**Autoboxing**: Primitive types -> Object(Wrapper class):
+`alist.add(7)` converts the `int 7` to `Integer 7`
+**Unboxing** : Object(Wrapper class) -> Primitive types:
+`int elem = alist.get(1)` converts the `Integer 1 ` to `in 1 `.  
+
+### ArrayList
+#### **Declaration**
+```java
+import java.util.ArrayList;
+
+ArrayList<Integer> alist = new ArrayList<>();  // 
+ArrayList<String> slist = new ArrayList<>(10); // specify the initial capacity;
+ArrayList<Object> olist = new ArrayList<>();   // any object of defined class by the user. 
+```
+
+#### **Methods**
+Given an `ArrayList<Integer> alist` 
+1. `add(E element)` adds an element to the end of the list.
+   `add(int index, E element)` adds an element at the specified index.
+   ```java
+   ArrayList<Integer> alist = new ArrayList<>();
+   alist.add(7); // Automatically boxed from int to Integer
+   alist.add(1, 42);
+   ```
+2. `get(int index)` returns the element at the specified index.
+   ```java
+   int elem = alist.get(1);
+   ```
+3. `set(int index, E element)` replace the element at the specified index with the new element.
+   ```java
+   alist.set(0, 99);
+   ```
+4. `remove(int index)` removes the element at the specified index.
+   `remove(Object obj)` removes the first occurrence of the specified element.
+   ```java
+   alist.remove(1);
+   alist.remove(Integer.valueOf(99));
+   ```
+5. `size()` returns the number of elements in the list.
+   ```java
+   int size = alist.size();
+   ```
+6. `clear()` removes all elements from the list.
+   ```java
+   alist.clear();
+   ```
+7. `isEmpty()` returns `true` if the list is empty.
+   ```java
+   boolean empty = alist.isEmpty();
+   ```
+8. `contains(Object obj)` returns `true` if the list contains the specified element.
+   ```java
+   boolean contain = alist.contains(99);
+   ```
+9. `indexOf(Object obj)` returns the index of the first occurrence of the specified element.
+   `lastIndexOf(Object obj)` returns the index of the last occurrence of the specified element.
+   ```java
+   int index = alist.indexOf(99);
+   ```  
+10. `toArray()` returns an array containing all of the elements in the list.
+    ```java
+    Integer[] arr = alist.toArray(new Integer[alist.size()]);
+    ```
+11. To print the whole ArrayList, just use `System.out.println(alist);`. [_, _, _,...]
+
+
+## Stream
+
+### Features:
+1. ***Functional in nature***, only produces a result and does not modify its source.
+2. ***Laziness seeking***, like `.filter()`, `.map()` and other **Intermediate operations** are always lazy, do not start processing until a **terminal operation** invoked.
+3. ***Consumable***, a elements of a stream are only visited once during the life of the stream(stream closed once a terminal operation invoked).
+
+### Stream Operations and Pipeline
+#### Step 1: create a stream form a source
+1. **from Collection** 
+   `default Stream<E> stream()` method in the `Collection` interface.
+   ```java
+   import java.util.ArrayList;
+   import java.util.stream.Stream;
+
+   ArrayList<Integer> alist = {9,7,8,2,1,3,4,6,5};
+   Stream<Integer> stream = alist.stream();
+   ```
+2. **from Array**
+   `static <T> Stream<T> stream(T[] array)` method in the `Arrays` class.
+   ```java
+
+   import java.util.Arrays;
+   import java.util.stream.Stream;
+
+   int arr[] = {9,8,7,6,4,3,1,2,5};
+   Stream<Integer> stream = Arrays.stream(arr);
+   ```
+3. **from Stream Factory Methods(discrete data elements)**
+   ``static IntStream range(int startInclusive, int endExclusive)`` method in the `IntStream` interfaces.
+   Or, ``static <T> Stream<T> of(T... values)`` method in the `Stream` interface.
+   ```java
+   import java.util.stream.IntStream;
+
+   IntStream stream = IntStream.range(1, 10); // [1, 10)
+
+   import java.util.stream.Stream;
+   Stream<String> stream = Stream.of("dog", "cat", "bird");
+   ```
+
+#### Step 2: Intermediate Operations
+
+#### Step 3: Terminal Operations
