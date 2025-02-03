@@ -8,6 +8,8 @@
 <!-- - [Generics](#Generics) -->
 - [Container](#Container)
 - [Stream](#Stream)
+- [Exception](#Exception)
+
 ## Basics
 ### Compile and run
 
@@ -502,6 +504,13 @@ Given an `ArrayList<Integer> alist`
     ```
 11. To print the whole ArrayList, just use `System.out.println(alist);`. [_, _, _,...]
 
+### Map
+
+**Declaration**
+..BUILDING...
+
+
+
 
 ## Stream
 
@@ -634,4 +643,99 @@ list.stream()    // create a stream from a collection
     // output: "AUTHORIZATION ADMINISTRATIVE CATALOGUE PRIVILEGE RESTRICTIVE"
 
     .anyMatch(str -> str.startWith("A");)       // short-circuiting terminal operation
+```
+
+
+## Exception:
+
+### Keywords
+
+#### "try-catch" block
+```java
+try{
+   // Code they may trigger an exception
+}catch(Exception e){
+   // do something to recover from the exception
+}finally{
+   // Code that always executed regardless of whether an exception is thrown.
+   // But at here, 'finally' block is unnecessary. cause the exception has been caught and program continues to run.
+}
+```
+`Exception e` means that **any exception of type** `Exception`, you can replace it with a specific exception type.  
+`e` is a **reference variable** that holds the exception object.       
+It contains information about the error, such as message and stack trace.  
+
+#### finally block
+```Java
+try{
+   // Code they may trigger exception.
+} finally {
+   // The program may terminate due to an uncaught exception caused by a missing catch block.
+   // Anyway, the codes in 'finally' block are always executed.
+}
+```
+
+#### 'throw' keyword
+
+The `throw` keyword is used to **inside a method** to explicitly **trigger an exception**. And it is **followed by an instance of an exception**.  
+Only one exception can be thrown at a time.
+```java
+public static void checkAge(int age){
+   if(age < 18)
+   {
+      throw new IllegalArgumentException("Age must be 18 or above.");
+   }
+   system.out.println("Age is valid.");
+}
+```
+#### 'throws' keyword
+The `throws` keyword is used in a **method signature** to **declare** that this method **might** throw one of the listed exceptions.  
+It **does not handle the exception itself**; it just **informs** the **caller that they should handle or propagate** it.   
+```java
+public void readFile(String filePath) throws IOException{
+   FileReader file = new FileReader(filePath);
+}
+```
+
+NOTE: both `throw` and `throws` do not handle the exceptions immediately, requiring the caller to handle them.
+
+#### Checked vs Unchecked Exceptions
+
+- Checked Exception:
+  - **Must be handle** either with `try-catch` or by declaring with `throws` in the method signature.
+  - Checked at compile time, meaning the program won't compile if they're not handled.
+  - Recoverable exceptions, such as `IOException`(wrong input/output operation), `SQLException`(database connection error)...
+  - Extends: `Exception` but not `RuntimeException`.  
+  - 
+- Unchecked Exception:
+  - Not checked at compile time, meaning that Java not forced to handle or declare them.
+  - Occur at **runtime** due to logical errors or programming mistakes(e.g. accessing a null reference, invalid index, division by zero.)  
+  - Extends: `RuntimeException`
+
+#### Custom Exception
+You can create your own exception by extending the `Exception `class.
+```java
+class MyException extends Exception{
+   public MyException(String message){
+      super(message); // call the constructor of the parent class
+   }
+}
+
+public class CustomExceptionExample{
+   public static void customMethod(String code) throws MyException{
+      if(!code.equals("5207")){
+         throw new MyException("Invalid code.");
+      }
+   }
+
+
+   public static void main(String[] args){
+      CustomExceptionExample obj = new CustomExceptionExample();
+      try{
+         obj.customMethod("12334");
+      }catch(MyException e){
+         System.out.println("Caught custom exception: "e.getMessage());
+      }
+   }
+}
 ```
