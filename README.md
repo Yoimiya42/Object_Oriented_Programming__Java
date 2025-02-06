@@ -10,6 +10,7 @@
 - [Container](#Container)
 - [Stream](#Stream)
 - [Exception](#Exception)
+- [Inheritance](#Inheritance)
 
 ## Basics
 ### Compile and run
