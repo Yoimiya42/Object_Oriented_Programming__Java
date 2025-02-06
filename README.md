@@ -818,8 +818,8 @@ class Square extends Shape
 }
 ```
 
-- `private` instance variables are inherited and are the part of subclass objects, but they only can be accessed by superclass methods and **not directly accessed** by subclass objects.  
-- Must use `super` to invoke the **superclass constructor** and access them by `public` methods it inherited. 
+- `private` instance variables are not inherited and but are the part of subclass objects, they only can be accessed by superclass methods and **not directly accessed** by subclass objects.  
+- Must use `super` to invoke the **superclass constructor** and access them via `public` methods it inherited. 
 - If a subclass does not explicitly call a superclass constructor, the `super()`(invoke the superclass constructor with no arguments. But if not exist, it will cause a compile-time error)) will be added by compiler implicitly.
 
 ### `abstract` class and method
