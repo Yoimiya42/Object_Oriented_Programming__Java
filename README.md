@@ -1,5 +1,6 @@
 # Java Foundations
-## __Contents__
+
+## Contents
 - [Basics](#Basics)
 - [DataType for Java](#Data-Type-in-Java)
 - [String](#String)
@@ -353,6 +354,7 @@ Or use `Arrays.copyOfRange(T[] original, int start, int end)` to copy a range of
 int[] arr1 = {2,3,5,8,13};
 int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
 ```
+---
 
 ## Random
 
@@ -426,6 +428,7 @@ int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
    random.nextDouble() * 1.998 - 0.999;
    ```
 
+---
 
 ## Container
 
@@ -510,7 +513,7 @@ Given an `ArrayList<Integer> alist`
 ..BUILDING...
 
 
-
+---
 
 ## Stream
 
@@ -645,12 +648,45 @@ list.stream()    // create a stream from a collection
     .anyMatch(str -> str.startWith("A");)       // short-circuiting terminal operation
 ```
 
+---
 
 ## Exception:
 
-### Keywords
+### Hierarchy
+All exceptions descend from `Throwable` class which has two branches:
+```mermaid
+graph TD 
+Throwable-->Exception
+Throwable-->Error
+Exception-->RuntimeException
+Exception-->IOException
+```
+- `Throwable`
+  - `Error` -> `Unchecked exceptions`
+  - `Exception`
+    - `RuntimeException` -> `Unchecked exceptions`
+    - `IOException` -> `Checked exceptions`
 
-#### "try-catch" block
+`Error` are internal errors and resource exhaustion. You should not throw or catch them.
+
+#### Checked vs Unchecked Exceptions
+
+- Checked Exception(Extends: `Exception` but not `RuntimeException`):
+  - **Must be handle** either with `try-catch` or by declaring with `throws` in the method signature.
+  - Checked at compile time, meaning the program won't compile if they're not handled.
+  - Recoverable exceptions, such as `IOException`(wrong input/output operation), `SQLException`(database connection error)...
+  
+- Unchecked Exception(Extends: `RuntimeException`):
+  - Not checked at compile time, meaning that Java not forced to handle or declare them.
+  - Occur at **runtime** due to logical errors or programming mistakes(e.g. accessing a null reference, invalid index, division by zero.)
+  - **You indeed should use `throws` to declare them** in the method signature.
+    
+### Keywords
+#### `try-catch` block
+If an exception occurs that is not caught anywhere, the program will terminate and print a message to the console, with the type of exception and the stack trace.  
+When you use `try-catch` block, the program will continue to run even if an exception is thrown.  
+If you intend to use multiple `catch` blocks, put the more **specific** exception types before the more **general** ones.
+
 ```java
 try{
    // Code they may trigger an exception
@@ -664,8 +700,10 @@ try{
 `Exception e` means that **any exception of type** `Exception`, you can replace it with a specific exception type.  
 `e` is a **reference variable** that holds the exception object.       
 It contains information about the error, such as message and stack trace.  
+You can use `e.getMessage()` to get the error message.  
+Or use `e.printStackTrace()` to print the stack trace.
 
-#### finally block
+#### `finally` block
 ```Java
 try{
    // Code they may trigger exception.
@@ -675,7 +713,7 @@ try{
 }
 ```
 
-#### 'throw' keyword
+#### `throw` keyword
 
 The `throw` keyword is used to **inside a method** to explicitly **trigger an exception**. And it is **followed by an instance of an exception**.  
 Only one exception can be thrown at a time.
@@ -688,7 +726,7 @@ public static void checkAge(int age){
    system.out.println("Age is valid.");
 }
 ```
-#### 'throws' keyword
+#### `throws` keyword
 The `throws` keyword is used in a **method signature** to **declare** that this method **might** throw one of the listed exceptions.  
 It **does not handle the exception itself**; it just **informs** the **caller that they should handle or propagate** it.   
 ```java
@@ -696,21 +734,18 @@ public void readFile(String filePath) throws IOException{
    FileReader file = new FileReader(filePath);
 }
 ```
+Most of time, you should advertise the `RuntimeException`, 
 
 NOTE: both `throw` and `throws` do not handle the exceptions immediately, requiring the caller to handle them.
 
-#### Checked vs Unchecked Exceptions
-
-- Checked Exception:
-  - **Must be handle** either with `try-catch` or by declaring with `throws` in the method signature.
-  - Checked at compile time, meaning the program won't compile if they're not handled.
-  - Recoverable exceptions, such as `IOException`(wrong input/output operation), `SQLException`(database connection error)...
-  - Extends: `Exception` but not `RuntimeException`.  
-  - 
-- Unchecked Exception:
-  - Not checked at compile time, meaning that Java not forced to handle or declare them.
-  - Occur at **runtime** due to logical errors or programming mistakes(e.g. accessing a null reference, invalid index, division by zero.)  
-  - Extends: `RuntimeException`
+#### The `try`-with-Resources statement 
+Resources that implement the `AutoCloseable` will implicitly call `close()` after `try` block exits.
+```java
+try(var in = newScanner(Path.of("file.text"))){
+   while(in.hasNext())
+      System.out.println(in.next());
+}// in.close() is called automatically. 
+```
 
 #### Custom Exception
 You can create your own exception by extending the `Exception `class.
@@ -739,3 +774,192 @@ public class CustomExceptionExample{
    }
 }
 ```
+
+---
+
+## Inheritance
+
+### Superclass and Subclass
+
+- superclass is a **generalisation**
+  - define the common/abstract attributes and methods of the subclasses
+- subclass is a **specialisation** (a more concrete and specific complement/implementation of the superclass)
+  - shared `public` and `protected` attributes and methods of the superclass
+  - can specialise by adding its own attributes and methods.
+
+### `super` keyword
+```java
+class Shape
+{
+   private int x;
+   private int y;
+   
+   public Shape(int x, int y)
+   {
+      this.x = x;
+      this.y = y;
+   }
+
+   public abstract area()
+}
+```
+```java
+class Square extends Shape
+{
+   private int side; // subclass-specific attribute
+
+   public Square(int x, int y, int side)
+   {
+      // Calling the superclass constructor by `super` 
+      // must be the first statement in the subclass constructor.
+      super(x, y); 
+      this.side = side;
+   }
+}
+```
+
+- `private` instance variables are inherited and are the part of subclass objects, but they only can be accessed by superclass methods and **not directly accessed** by subclass objects.  
+- Must use `super` to invoke the **superclass constructor** and access them by `public` methods it inherited. 
+- If a subclass does not explicitly call a superclass constructor, the `super()`(invoke the superclass constructor with no arguments. But if not exist, it will cause a compile-time error)) will be added by compiler implicitly.
+
+### `abstract` class and method
+
+- `abstract` method
+On superclass, you can declare a method using `abstract` as a **placeholder** for the method, **without implementation(method body)**, and **must be overridden**(provide specific implementation) in the subclass.  
+
+```java
+class abstract Shape // contains a abstract method => must be declared as abstract class
+{
+   private int x;
+   private int y;
+   
+   public Shape(int x, int y)
+   {
+      this.x = x;
+      this.y = y;
+   }
+
+   public abstract double area();
+   /*
+   without implementation, cause don't know how to calculate the area of a shape.
+   It's up to a specific shape, hence need to be overridden in the subclass.
+   */
+}
+```
+Once a class contains an abstract method, the class forced be declared as `abstract` class. 
+↓↓↓
+- `abstract` class
+   - define a **template** for subclasses and used to be inherited by them.
+   - `instance variables`, `constructors`, concrete methods(with implementation), and `abstract methods` **can be included**.
+   - **cannot be instantiated**
+   - Once a subclass inherits an abstract class, it **must** override **all** abstract methods, unless it is also declared as `abstract` class.  
+
+### Method Overriding and Overloading
+
+- **Overloading** happens **in the same class**
+  - different method signature with the same name.
+  - **different parameter list**. Different types, numbers, or order of parameters.
+  - **return type** can be the same or different.
+- **Overriding** : a subclass redefines a method inherited from a superclass.
+  - **Identical method signature**: The method name, parameter list, and return type.
+  - **different implementation**. The subclass provides a specific implementation of the method.
+  
+### Polymorphism
+A **object variable** is polymorphic. A variable of type `Shape` can refer to an object of type `Shape`, or, an object of `any subclass of Shape`.
+> superclass --> subclass/itself object (unidirectional)
+
+```java
+Shape s1 = new Shape(2,3);   // Valid.
+Shape s2 = new Square(2,3,4);// Valid. Square is a Shape.
+// "Parent reference refers to a child object"
+
+Square s3 = new Shape(2,3);  // Invalid. Shape not a Square.
+```
+
+What is polymorphism?  - Allows the same method exhibit different behaviors on different objects.  
+- **Compile-time polymorphism**: method `overloading`
+- **Run-time polymorphism**: method `overriding`
+
+The precondition of polymorphism:
+1. **Inheritance** or implementation of the same interface.
+2. **Method Overriding**
+3. **Parent reference refers to a child object**
+
+```java
+class Animal
+{
+   public void sound()
+   {
+      System.out.println("Animal makes a sound.");
+   }
+}
+
+class Cat extends Animal
+{
+   @Override
+   public void sound() // Overriding
+   {
+      System.out.println("Cat meows.");
+   }
+
+   public void sound(int n) // Overloading
+   {
+      System.out.println("Cat meows " + n + " times.");
+   }
+
+   public void run()  // subclass-exclusive method
+   {
+      System.out.println("Cat runs.");
+   }
+}
+```
+```java
+Animal a1 = new Cat();
+a1.sound(); // "Cat meows."
+
+a1.run();   // Compile-time ERROR. The reference type ia Animal, 
+            //which does not have a run() method. 
+
+// But cast the reference type to Cat, it works.
+((Cat)a1).run(); // "Cat runs."
+
+// If you attempt use `a1` to invoke the parent method `sound()` and cast it to Animal, it also NOT work.
+((Animal)a1).sound(); // "Cat meows." --> Dynamic binding.
+```
+
+```java
+Number n = new Integer(42);  // Integer inherits from Number
+n.compareTo(42); //ERROR. `compareTo()` is Integer-exclusive method.
+```
+
+1. The declared type of the reference variable determines which methods can be called.-->(**visible scope**)
+2. The actual method executed is determined by the run-time type of the object 
+(**dynamic binding**)
+
+
+### Dynamic binding and Static binding
+#### Statically binding
+Static binding happens at compile time, meaning the compiler knows exactly which method to call, determined by the reference type instead of the actual object type.
+
+- **`private methods`**:
+  `private methods` and `private variables` are **not be inherited**(they are not visible to the subclass, but subclass could gain `private variable` via invoking like `getSomething()`,`withSomething` public method to access and manipulate them). 
+- **`static methods`**
+- **`final methods`**:
+  `final class` cannot be inherited, `final method` cannot be overridden.
+- **`overloading methods`**:
+  The method to be executed is determined by the **reference type** at compile time.
+  
+  
+#### Dynamically binding
+The method to be called depends on the **actual type** of the implicit argument, and dynamic binding must be used at runtime. When the programs run, the JVM must call the version of the method that is appropriate for the **actual type** of the object to which variable refers. like`method overriding`.
+
+It makes programs extensible without the need for modifying existing code and **enables the polymorphism.**
+
+
+### All classes inherit from `Object` class
+Class `Object` provides a small set of methods that all classes inherit and be called for all objects.
+- `toString()`
+- `equals(Object obj)`
+- `hashCode()`
+- `getClass()`
+- `clone()`
