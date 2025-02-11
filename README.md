@@ -853,7 +853,7 @@ Once a class contains an abstract method, the class forced be declared as `abstr
    - define a **template** for subclasses and used to be inherited by them.
    - `instance variables`, `constructors`, concrete methods(with implementation), and `abstract methods` **can be included**.
    - **cannot be instantiated**
-   - Once a subclass inherits an abstract class, it **must** override **all** abstract methods, unless it is also declared as `abstract` class.  
+   - Once a subclass inherits an abstract class, it **must** override **all** abstract methods, unless it should also be declared as `abstract` class.  
 
 ### Method Overriding and Overloading
 
@@ -964,3 +964,179 @@ Class `Object` provides a small set of methods that all classes inherit and be c
 - `hashCode()`
 - `getClass()`
 - `clone()`
+
+
+## Record
+A record is a  **class-like** construct that define **immutable** data with a concise syntax.
+```java
+public record Person(String name, int age){}
+```
+- instance variables(fields) are `final`
+- `getter method` like `age()`, `constructor`, `equals()`,
+   `hashCode()`, `toString()` are automatically generated.
+
+which is equivalent to:
+```java
+public class Person
+{  
+   // All fields are immutable
+   private final String name;
+   private final int age;
+   
+   public Person(String name, int age)
+   {
+      this.name = name;
+      this.age = age;
+   }
+
+   public String name()  {return name;}
+   public int age()      {return age;}
+
+   @Override
+   public boolean equals(Object obj)
+   {// If the object is compared with itself
+      if(this == obj)    
+         return true;
+   // null or an instance of different class 
+      if(obj == null || getClass() != obj.getClass())
+         return false;
+
+      Person person = (Person) obj;
+      return age = person.age && name.equals(person.name);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      return Object.hash(name, age);
+   }
+
+   @Override 
+   public String toString()
+   {
+      return "Person{" + "Name= '" + name + "\'" + ", Age=" + age+ "}";
+   }
+}
+```
+We can define generic tuple classes with `record`:
+```java
+public record Tuple<T1, T2>(T1 first, T2 second){}
+```
+and use it like:
+```java
+Tuple<String, Integer> tuple = new Tuple<>("Yoimiya", 42);
+```
+
+
+## Interface
+
+Integer is a set of *requirements* for classes that want to conform to the interfaces.
+
+### Define a Interface
+```java
+interface Faculty
+{
+   String university = "UCL"; // a public static final constant
+
+   void work();   // a public abstract method
+
+   default void teach()  // a default method with implementation
+   {
+      System.out.println("Teaching...");
+   } 
+
+   static void greet()   // a static method with implementation
+   {
+      System.out.println("Hello, Sir!");
+   }
+}
+```
+```java
+public interface Comparable<T>
+{
+   int compareTo(T other);
+}
+```
+- **Cannot** define instance variable in an interface, but you can define a `constant`, which is always `public static final`.
+- Interface has **no constructor**, so you can **never** use the `new` to instantiate an interface.
+- All methods of an interface are `public abstract`, and with no implementation expect for the `default` and `static` methods. 
+
+#### default method:
+`default` methods make the interface have **evolution** and **backward compatibility**, allowing the classes implemented the interface optionally override them.  
+But there are Default Method Conflicts:
+```java
+interface A {
+   default void show(){System.out.println("A");}
+}
+
+interface B {
+   default void show(){System.out.println("B");}
+}
+
+interface C{
+     void show(){System.out.println("C");}
+}
+
+class D{
+   public void show(){System.out.println("D");}
+}
+```
+> Case1.1: implements two interfaces with two identical default method.
+
+Conflict. You **must** override the default method by indicating which default method to use, or provide a new implementation.
+   ```java
+   class D implements A, B
+   {
+      @Override
+      public void show()
+      {
+         A.super.show(); // indicate the invoking of the default method from interface A.
+      }
+   }
+   ```
+> Case1.2: implements two interface with two identical methods, but only one is default.
+
+ No conflict. The default one is ignored, but you still need to override the **nondefault** method.
+
+
+>Case2: Extends a superclass and implements an interface, inheriting the same method from both.
+
+**Superclasses and Overridden first** Only the superclass method matters, and any default methods form the interface are ignored.  
+But you can still invoke the interface default method by `InterfaceName.super.methodName()` explicitly.
+ ```java
+ class E extends D implements A
+ {
+    // The show() method bot be overridden but no compile error.
+ }
+ ```
+A classic example, you can **never** make a default method that redefines methods from `Object` class, like `equals()`, `hashCode()`, `toString()`. Because all classes inherit from `Object` class, according to the **Superclasses and Overridden first** rule, the default method will be ignored.
+
+
+### Implement an Interface
+```java
+class Researcher implements Faculty, Comparable<Researcher>
+{
+   @Override
+   public void work()
+   {
+      System.out.println("Researching...");
+   }
+}
+```
+1. Use `implements` keyword to implement one or multiple interfaces(unlike have only one superclass).
+2. Must provide concrete implementations(override, means identical method signature) for **ALL** abstract methods (except `default` which is optional to override, and `static` which is belong to the interface itself and cannot be inherited), otherwise, the class must be declared as `abstract`.
+
+
+
+### Properties of Interface
+1. You can declare interface variables which must refer to **an object of class that implements that interface**.
+```java
+Comparable<Integer> num = Integer.valueOf(42);
+```
+2. Just as you use `instanceof` to check if an object is an instance of a class, you can use it to check whether an object implements an interface.
+```java
+if(Integer.valueOf(42) instanceof Comparable)
+{
+   System.out.println("Integer implements Comparable.");
+}
+```

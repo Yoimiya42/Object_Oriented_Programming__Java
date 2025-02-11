@@ -10,10 +10,46 @@ with some examples.
 
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Scanner;
+
 public class Lab2_2 {
     public static void main(String[] args){
-        System.out.println("Hello, World!");
+        
+        Lab2_2 obj = new Lab2_2();
+        Scanner scanner = new Scanner(System.in);
+
+        int year = obj.validatedInput(scanner, "Year");
+        int month = obj.validatedInput(scanner,"Month");
+        int day = obj.validatedInput(scanner,"Day");
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month - 1);
+        c.set(Calendar.DAY_OF_MONTH, day);
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateFormatted = dateFormatter.format(c.getTime());
+        System.out.println(dateFormatted);
     }
 
+    public int validatedInput(Scanner scanner, String message){
 
+        int validInput; 
+        while(true)
+        {
+            System.out.printf("Please input" + message +" : ");
+            String input = scanner.nextLine();
+            try 
+            {
+                validInput = Integer.parseInt(input);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("\nInvalid Input. Please input valid "+ message);
+            }
+        }
+        
+        return validInput;
+    }
 }
