@@ -11,7 +11,8 @@
 - [Stream](#Stream)
 - [Exception](#Exception)
 - [Inheritance](#Inheritance)
-
+- [Record](#Record)
+- [Interface](#Interface)
 ## Basics
 ### Compile and run
 
