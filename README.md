@@ -13,6 +13,8 @@
 - [Inheritance](#Inheritance)
 - [Record](#Record)
 - [Interface](#Interface)
+- [Package](#Package)
+
 ## Basics
 ### Compile and run
 
@@ -1141,3 +1143,191 @@ if(Integer.valueOf(42) instanceof Comparable)
    System.out.println("Integer implements Comparable.");
 }
 ```
+
+
+## package
+
+Java projects
+ ├── `module`(e.g. java.base, java.sql)
+ │   ├── `package` (e.g. java.util, java.io)
+ │   │   ├── `class` / `interface` / `record`
+            |—— javaFile.java  
+             (e.g. In java.util: List is an Interface, ArrayList is a class that implements List)  
+Package only contains `interfaces` /`classes`/ `records`, but **not** nested packages(nested literally in hierarchy, but exists as a independent package)  
+
+com  
+│  
+└── myapp  
+    ├── controllers  
+    │   ├── UserController.java  
+    │   ├── ProductController.java  
+    │  
+    ├── models  
+    │   ├── User.java  
+    │   ├── Product.java  
+    │  
+    ├── services  
+    │   ├── UserService.java  
+    │   ├── ProductService.java  
+    │  
+    ├── utils  
+        ├── DateUtils.java  
+        ├── StringUtils.java  
+
+This java project has **four packages**:
+- `com.myapp.controllers`
+- `com.myapp.models`
+- `com.myapp.services`
+- `com.myapp.utils`
+
+If you intend to compile all files in `com.myapp.controllers` package, navigate to the root directory of the project and run the following command:
+```shell
+javac com/myapp/controllers/*.java -d outDirName
+```
+-d flag is used to specify the output directory for the compiled `.class` files.  
+
+To run the programs via Java Virtual Machine, you need to specify the classpath to the root directory of the project.
+```shell
+java -cp outDirName com.myapp.controllers.UserController
+```
+JVM will now look for the `UserController.class` file in the `com.myapp.controllers` package in the `outDirName` directory.
+
+
+In the UserController.java, explicitly declare the package belongs to at the beginning of the file.  
+Otherwise, the default package is used.
+```java
+UserController.java
+
+package com.myapp.controllers;
+```
+
+If you want to use class `ArrayList` without `import java.util.ArrayList` deliberately, you need full class name 
+```java
+java.util.ArrayList<String> aList = new java.util.ArrayList<>();
+``` 
+Maybe it's useful when you want to avoid the conflict of the same classname in different packages.
+
+### Package Scope
+
+Classes declared as **public** can be imported adn used by other classes in different packages.
+
+|Modifier|Same Class | Same Package | Subclass in different package
+|:---:|:---:|:---:|:---:|
+|**`public`**|✅ |✅ |✅ |
+|**`default`**|✅ |✅ |❌ |
+|protected|✅ |✅ |✅ |
+|private|✅ |❌ |❌ |
+
+
+**protected** and **private** cannot used for top-level classes, but can be used for inner classes and variables/methods.
+`protected` inner classes can be accessed by subclasses in different packages but `private` inner classes cannot.
+
+## Generics
+
+Types, can be defined by `classes` , `interface`, `records`, `enums`. 
+An **object** can conform to multiple types.  
+
+By convention, single uppercase letters are used to represent the type parameter.
+- `E` - Element type of a **collection**
+- `K` `V` - key and value type of a **table** 
+- `T`(`U`,`S` if necessary) - **any type**
+
+***Instantiate*** done when the generic type is substituted by the type parameter with a concrete type.
+
+`List<T>` is a **generic type** with *type variable* T **unbound**, meaning it can represent any type.   
+However, `T` may become **implicitly constrained** when used in a context that enforces type bounds like `Collections.sort(List<T>)`, which imposes `<T extends Comparable<? super T>>`. 
+
+`List<String>` is a **parameterized type**, which is **an instantiation** of `List<T>` with **T bound to String** 
+
+
+When we can say that "__ is a subtype of __"?:
+1. Inheritance: `class B extends A` -> `B` is a subtype of `A`.
+2. Implementation of an interface: `class B implements A` -> `B` is a subtype of `A`.(Also, Inheritance between interfaces)
+3. Wildcard: `List<? extends A>` -> `List<B>` is a subtype of `List<A>`.
+4. Covariant Array: `B[]` is a subtype of `A[]` if `B` is a subtype of `A`.
+
+In generics, `extends` used to expresses the `subtype` relationship,
+both `T` and `boundingType` can be a class or interface.
+```java
+<T extends BoundingType1&BoundingType2>
+```
+
+### Type Erasure
+Whenever you define a generic type, a corresponding **raw type** is automatically provided:
+
+```java
+public class Pair<T>
+{
+   private T first;
+
+   public Pair(T first)
+   {  this.first = first; }
+
+   public T getFirst()
+   {  return first; }
+}
+```
+```java
+public class Interval<T extends Comparable<T>>
+{
+   private T lower;
+   private T upper;
+
+   /* IMPLEMENTATION */
+}
+```
+```java
+public static <T extends Comparable> T min(T[] a)
+```
+- type parameters removed.
+- type variables replaced by their **bounding types** (`Object` for unbounded type variables).
+
+```java
+public class Pair // type parameter removed
+{
+   private Object first; // unbounded, replaced by Object
+
+   public Pair(Object first) // unbounded, replaced by Object
+   {  this.first = first; }
+
+   public Object getFirst() // unbounded, replaced by Object
+   {  return first; }
+}
+```
+```java
+public class Interval // type parameter removed
+{
+   private Comparable lower; // bounded, replaced by bounding type
+   private Comparable upper; // bounded, replaced by bounding type
+
+   /* IMPLEMENTATION */
+}
+```
+```java
+public static Comparable min(Comparable[] a) // type parameter removed
+```
+
+When a generic method is called, the compiler inserts **casts** when the return has been erased.
+(Given that `Cat` is a superclass of `Animal`)
+```java
+Pair<Cat> cat = ...;
+Cat cat = cat.getFirst(); // Cat cat = (Cat) cat.getFirst();
+```
+- A call to the raw method `getFirst()`.  
+- A **cast** that `Object` to `Cat` is implicitly inserted by the compiler automatically 
+
+### Inheritance Rules for Generic Types
+(Given that `Cat` is a superclass of `Animal`)
+
+Cat **is** a subtype of Animal
+but, List<Cat> **is not** a subtype of List<Animal>.  
+In general, there is **no relationship** between `List<S>` and `List<T>`, no matter how `S` and `T` are related.
+However, `ArrayList<T>` **is a subtype** of `List<T>` for any type of T since `ArrayList` implements `List<T>` .
+
+### Wildcards
+
+- Upper Bounded Wildcards `<? extends T>`: 
+  Represents any type that is a **subtype** of T.   (<= T)
+- Lower Bounded Wildcard `<? super T>`:  
+   Represents any type that is a **supertype** of T.  (>= T)
+
