@@ -1,4 +1,6 @@
 
+package COMP0004.Lab3.Lab3_5.src;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

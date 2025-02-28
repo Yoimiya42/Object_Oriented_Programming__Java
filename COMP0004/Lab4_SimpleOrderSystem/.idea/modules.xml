@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SimpleOrderSystem.iml" filepath="$PROJECT_DIR$/SimpleOrderSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/COMP0004SimpleOrderSystem.iml" filepath="$PROJECT_DIR$/COMP0004SimpleOrderSystem.iml" />
     </modules>
   </component>
 </project>

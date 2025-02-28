@@ -1326,8 +1326,6 @@ However, `ArrayList<T>` **is a subtype** of `List<T>` for any type of T since `A
 
 ### Wildcards
 
-- Upper Bounded Wildcards `<? extends T>`: 
-  Represents any type that is a **subtype** of T.   (<= T)
-- Lower Bounded Wildcard `<? super T>`:  
-   Represents any type that is a **supertype** of T.  (>= T)
+- Upper Bounded Wildcards `<? extends T>`: Represents any type that is a **subtype** of T.   (<= T)
+- Lower Bounded Wildcards `<? super T>`:  Represents any type that is a **supertype** of T.  (>= T)
 
