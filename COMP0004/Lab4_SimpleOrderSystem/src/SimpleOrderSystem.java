@@ -185,16 +185,60 @@ public class SimpleOrderSystem
     System.out.print("Enter product code: ");
     int code = in.nextInt();
     in.nextLine();
+
     if (!isAvailableProductCode(code))
     {
       return;
     }
-    System.out.print("Enter product description: ");
-    String description = in.nextLine();
+    System.out.print("Enter product type(snack/daily necessity/beverage): ");
+    String type = in.nextLine().toLowerCase().replaceAll("\\s+", "");
+
+    System.out.println("Enter product name: ");
+    String name =  in.nextLine();
+
     System.out.print("Enter product price: ");
     int price = in.nextInt();
     in.nextLine();
-    Product product = new Product(code,description,price);
+
+    Product product;
+    switch(type)
+    {
+      case "snack":
+      {
+        System.out.println("Enter food shelfLife: ");
+        int shelfLife = in.nextInt();
+        in.nextLine();
+
+        System.out.println("Enter Calories: ");
+        double calories = in.nextDouble();
+        in.nextLine();
+
+        product = new Snack(code, price, name, shelfLife, calories);
+        break;
+      }
+      case "dailynecessity":
+      {
+        System.out.print("Enter brand: ");
+        String brand = in.nextLine();
+
+        product = new DailyNecessity(code, price, name, brand);
+        break;
+      }
+      case "beverage":
+      {
+        System.out.println("Enter Volume or Weight: ");
+        int volume_weight = in.nextInt();
+        in.nextLine();
+
+        product = new Beverage(code, price, name, volume_weight);
+        break;
+      }
+
+      default:
+        System.out.println("Invalid product type");
+        return;
+    }
+
     products.add(product);
   }
 
