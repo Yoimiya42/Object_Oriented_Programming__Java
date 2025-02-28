@@ -1,4 +1,4 @@
-package COMP0004SimpleOrderSystem.src;
+package SimpleOrderSystem2;
 
 public class LineItem
 {

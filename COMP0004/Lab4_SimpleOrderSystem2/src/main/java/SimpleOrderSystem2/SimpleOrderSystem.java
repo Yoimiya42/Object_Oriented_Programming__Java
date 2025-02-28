@@ -1,4 +1,4 @@
-package COMP0004SimpleOrderSystem.src;
+package SimpleOrderSystem2;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,13 @@ public class SimpleOrderSystem
   private Input in = new Input();
   private ArrayList<Customer> customers;
   private ArrayList<Product> products;
+  private FetchDataFromJSON fetchDataFromJSON;
 
-  public SimpleOrderSystem()
+  public SimpleOrderSystem(String rawFilePath)
   {
-    customers = new ArrayList<Customer>();
-    products = new ArrayList<Product>();
+      customers = new ArrayList<Customer>();
+      fetchDataFromJSON = new FetchDataFromJSON(rawFilePath);
+      products = fetchDataFromJSON.readFromJSON();
   }
 
   public void run()
@@ -335,7 +337,7 @@ public class SimpleOrderSystem
 
   public static void main(String[] args)
   {
-    SimpleOrderSystem orderSystem = new SimpleOrderSystem();
+    SimpleOrderSystem orderSystem = new SimpleOrderSystem("RawData.json");
     orderSystem.run();
   }
 }
