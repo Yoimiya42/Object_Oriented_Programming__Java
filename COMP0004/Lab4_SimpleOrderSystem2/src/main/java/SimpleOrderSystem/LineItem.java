@@ -1,4 +1,4 @@
-package SimpleOrderSystem2;
+package SimpleOrderSystem;
 
 public class LineItem
 {

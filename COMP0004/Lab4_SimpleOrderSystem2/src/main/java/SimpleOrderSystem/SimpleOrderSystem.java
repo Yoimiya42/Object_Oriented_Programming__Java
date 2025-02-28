@@ -1,4 +1,4 @@
-package COMP0004SimpleOrderSystem.src;
+package SimpleOrderSystem;
 
 import java.util.ArrayList;
 
@@ -9,15 +9,19 @@ public class SimpleOrderSystem
   public static final int ADD_PRODUCT = 3;
   public static final int LIST_CUSTOMERS = 4;
   public static final int LIST_ORDERS = 5;
+  public static final int LIST_TARGET_ORDERS = 6;
+  public static final int CUSTOMER_ORDER = 7;
   public static final int QUIT = 10;
   private Input in = new Input();
   private ArrayList<Customer> customers;
   private ArrayList<Product> products;
+  private FetchDataFromJSON fetchDataFromJSON;
 
-  public SimpleOrderSystem()
+  public SimpleOrderSystem(String rawFilePath)
   {
-    customers = new ArrayList<Customer>();
-    products = new ArrayList<Product>();
+      customers = new ArrayList<Customer>();
+      fetchDataFromJSON = new FetchDataFromJSON(rawFilePath);
+      products = fetchDataFromJSON.readFromJSON();
   }
 
   public void run()
@@ -42,6 +46,8 @@ public class SimpleOrderSystem
     System.out.println(ADD_PRODUCT + ". Add Product");
     System.out.println(LIST_CUSTOMERS + ". List Customers");
     System.out.println(LIST_ORDERS + ". List Value of All Orders");
+    System.out.println(LIST_TARGET_ORDERS + ". List All Target Product Related Orders");
+    System.out.println(CUSTOMER_ORDER + ". List Particular Customer's All Orders");
     System.out.println();
     System.out.println(QUIT + ". Quit");
   }
@@ -64,6 +70,12 @@ public class SimpleOrderSystem
         break;
       case LIST_ORDERS:
         listAllOrders();
+        break;
+      case LIST_TARGET_ORDERS:
+        findTargetOrders();
+        break;
+      case CUSTOMER_ORDER:
+        allOrdersForCustomer();
         break;
 
       default:
@@ -333,9 +345,34 @@ public class SimpleOrderSystem
   }
 
 
+  // op7: Q6 display the list of all orders for customer
+  public void allOrdersForCustomer()
+  {
+      int number = 0;
+      System.out.println("Enter the number to check for all orders for corresponding customer: ");
+      for(Customer customer : customers )
+      {
+          System.out.printf("No.%d: %s %s\n", number, customer.getFirstName(), customer.getLastName());
+          number += 1;
+
+      }
+
+      int input = in.nextInt();
+      in.nextLine();
+
+      if(input >= customers.size())
+      {
+          System.out.println("Customer does not exist.");
+          return;
+      }
+
+      for(Order order : customers.get(input).getOrders())
+          order.displayOrder();
+  }
+
   public static void main(String[] args)
   {
-    SimpleOrderSystem orderSystem = new SimpleOrderSystem();
+    SimpleOrderSystem orderSystem = new SimpleOrderSystem("RawData.json");
     orderSystem.run();
   }
 }

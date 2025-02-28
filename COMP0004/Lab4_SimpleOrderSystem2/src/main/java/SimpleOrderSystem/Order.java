@@ -1,4 +1,4 @@
-package COMP0004SimpleOrderSystem.src;
+package SimpleOrderSystem;
 
 import java.util.ArrayList;
 
@@ -35,9 +35,13 @@ public class Order
 
   public void displayOrder()
   {
+    System.out.println("-------------------------------------------");
     for(LineItem item : lineItems)
     {
-      System.out.println(item.getProduct().getName() + " " + item.getQuantity());
+      System.out.println(item.getProduct().getDescription()
+                        + " \t\t\t" + item.getQuantity()
+                        + " £" + item.getSubTotal()  );
     }
+    System.out.println("-------------------------------------------");
   }
 }

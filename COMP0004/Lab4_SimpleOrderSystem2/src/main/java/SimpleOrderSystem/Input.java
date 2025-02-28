@@ -1,4 +1,4 @@
-package SimpleOrderSystem2;
+package SimpleOrderSystem;
 
 import java.io.Closeable;
 import java.io.InputStream;

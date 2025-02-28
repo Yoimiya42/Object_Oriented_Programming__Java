@@ -1,4 +1,4 @@
-package SimpleOrderSystem2;
+package SimpleOrderSystem;
 
 
 abstract class Product{
@@ -39,7 +39,7 @@ class Snack extends Product
 
     @Override
     public String getDescription()
-    {   return getName() + " | " + shelfLife + " days | " + calories + " calories";     }
+    {   return getName() + " \n| " + shelfLife + " days | " + calories + " calories";     }
 }
 
 
@@ -55,7 +55,7 @@ class DailyNecessity extends Product
 
     @Override
     public String getDescription()
-    {   return getName() + " | Brand: " + brand;   }
+    {   return getName() + " \n| Brand: " + brand;   }
 }
 
 
@@ -71,6 +71,6 @@ class Beverage extends Product
 
     @Override
     public String getDescription()
-    {   return getName() + " | Volume/ weight: " + volume_weight + " ml/g";   }
+    {   return getName() + " \n| Volume/ weight: " + volume_weight + " ml/g";   }
 
 }

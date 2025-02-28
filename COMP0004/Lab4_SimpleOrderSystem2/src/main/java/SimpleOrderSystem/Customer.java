@@ -1,4 +1,4 @@
-package COMP0004SimpleOrderSystem.src;
+package SimpleOrderSystem;
 
 import java.util.ArrayList;
 

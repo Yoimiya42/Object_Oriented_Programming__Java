@@ -1,4 +1,4 @@
-package SimpleOrderSystem2;
+package SimpleOrderSystem;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
