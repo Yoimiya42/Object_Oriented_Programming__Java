@@ -7,14 +7,16 @@ public class Customer
   private String firstName;
   private String lastName;
   private String address;
+  private String postcode;
   private String phone;
   private String email;
   private ArrayList<Order> orders;
 
-  public Customer(String firstName, String lastName, String address, String phone, String email)
+  public Customer(String firstName, String lastName, String postcode, String address, String phone, String email)
   {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.postcode = postcode;
     this.address = address;
     this.phone = phone;
     this.email = email;
@@ -31,30 +33,20 @@ public class Customer
     return lastName;
   }
 
+  public String getPostcode() { return postcode; }
+
   public String getAddress()
   {
     return address;
   }
 
-  public String getPhone()
-  {
-    return phone;
-  }
+  public String getPhone() {  return phone; }
 
-  public String getEmail()
-  {
-    return email;
-  }
+  public String getEmail() {return email; }
 
-  public void addOrder(Order order)
-  {
-    orders.add(order);
-  }
+  public void addOrder(Order order) { orders.add(order);  }
 
-  public ArrayList<Order> getOrders()
-  {
-    return new ArrayList<Order>(orders);
-  }
+  public ArrayList<Order> getOrders() { return new ArrayList<Order>(orders);  }
 
   public int getTotalForAllOrders()
   {

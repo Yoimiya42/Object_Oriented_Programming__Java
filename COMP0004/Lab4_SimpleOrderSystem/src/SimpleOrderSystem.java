@@ -8,6 +8,7 @@ public class SimpleOrderSystem
   public static final int ADD_ORDER = 2;
   public static final int ADD_PRODUCT = 3;
   public static final int LIST_CUSTOMERS = 4;
+  public static final int LIST_ORDERS = 5;
   public static final int QUIT = 10;
   private Input in = new Input();
   private ArrayList<Customer> customers;
@@ -40,6 +41,7 @@ public class SimpleOrderSystem
     System.out.println(ADD_ORDER + ". Add Order");
     System.out.println(ADD_PRODUCT + ". Add Product");
     System.out.println(LIST_CUSTOMERS + ". List Customers");
+    System.out.println(LIST_ORDERS + ". List Value of All Orders");
     System.out.println();
     System.out.println(QUIT + ". Quit");
   }
@@ -60,6 +62,10 @@ public class SimpleOrderSystem
       case LIST_CUSTOMERS:
         listCustomers();
         break;
+      case LIST_ORDERS:
+        listAllOrders();
+        break;
+
       default:
         System.out.println("Invalid option - try again");
     }
@@ -73,23 +79,29 @@ public class SimpleOrderSystem
     return option;
   }
 
+  // Op1: Add Customer -----------------------------------------------------------------
   private void addCustomer()
   {
     System.out.println("Add new customer");
+
     System.out.println("Enter first name:");
     String firstName = in.nextLine();
     System.out.println("Enter last name:");
     String lastName = in.nextLine();
+    System.out.println("Enter postcode: ");
+    String postcode = in.nextLine();
     System.out.println("Enter address:");
     String address = in.nextLine();
     System.out.println("Enter phone number:");
     String phone = in.nextLine();
     System.out.println("Enter email address:");
     String email = in.nextLine();
-    Customer customer = new Customer(firstName,lastName,address,phone,email);
+    Customer customer = new Customer(firstName,lastName, postcode, address, phone, email);
     customers.add(customer);
   }
 
+
+  // Op2: Add Order -----------------------------------------------------------------------
   private void addOrder()
   {
     Customer customer = findCustomer();
@@ -180,6 +192,7 @@ public class SimpleOrderSystem
     return null;
   }
 
+  // Op3: Add new Product into System -------------------------------------------------------------
   private void addProduct()
   {
     System.out.print("Enter product code: ");
@@ -258,6 +271,8 @@ public class SimpleOrderSystem
     return true;
   }
 
+
+  // Op4: List all customers -------------------------------------------------------------------
   public void listCustomers()
   {
     System.out.println("List of customers");
@@ -272,6 +287,17 @@ public class SimpleOrderSystem
       System.out.println("Orders made: " + customer.getOrders().size());
       System.out.println("Total for all orders: " + customer.getTotalForAllOrders());
     }
+  }
+
+  // Op5: Q1:Display the total value of all orders for all customers -------------------------------
+  public void listAllOrders()
+  {
+      double totalValue = 0.0;
+
+      for(Customer customer : customers)
+          totalValue += customer.getTotalForAllOrders();
+
+      System.out.println("Total for all orders: " + totalValue);
   }
 
   public static void main(String[] args)
