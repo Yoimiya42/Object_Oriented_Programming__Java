@@ -1329,3 +1329,109 @@ However, `ArrayList<T>` **is a subtype** of `List<T>` for any type of T since `A
 - Upper Bounded Wildcards `<? extends T>`: Represents any type that is a **subtype** of T.   (<= T)
 - Lower Bounded Wildcards `<? super T>`:  Represents any type that is a **supertype** of T.  (>= T)
 
+---
+## Networking
+
+
+### IP Address
+- **IPv4**: 32-bit, 4 octets (4 × 8 bits)
+- **IPv6**: 128-bit, 8 groups of hexadecimal digits (8 × 16 bits)
+
+- **public static** IP:
+  -  Globally unique, stable, but incurs additional costs
+  -  e.g. websites,  VPNs, cloud servers
+- **public dynamic** IP:
+  - Assigned by Internet Service Providers (IPS), periodically changed
+  - e.g. Home Router
+- **private** IP:
+  - Dynamically allocated to devices by a router via DHCP within a local network
+
+- **Localhost**: loopback address, 127.0.0.1
+  - test web in local machine
+  - simulate a communication between client and server in the same machine
+   
+### Port
+16-bit unsigned integer, 0-65535
+- **Well-known port: 0-1023**: standardized, reserved for system services:
+  - 80 : HTTP (webpage browsing)
+  - 443: HTTPS (secure webpage browsing)
+  - 22 ：SSH  （secure remote login and file transfer)
+  - 25 : SMTP  (Simple Mail Transfer Protocol, send and receive emails)
+  - 53 : DNS service 
+- **Registered port: 1024-49151**: registered by applications
+- **Dynamic/private port: 49152-65535**: temporarily assigned by the system to client applications
+  
+
+### Web Communication:
+- **DHCP**(Dynamic Host Configuration Protocol): 
+  - **Dynamically allocate** private IP to local device
+  - **Renew** when the lease expires or disconnected
+- **NAT**(Network Address Translation): 
+  - Mapping an Allocated private IP to a public IP (router), allowing multiple devices to **share a single public IP**
+  - **PAT**(Port Address Translation, extension of NAT): IPv4 address is limited, so PAT uses **port numbers** to distinguish different devices sharing the same public IP.
+  - IP mapping + port mapping : private IP:port <-> public IP:port, and mapping relationship is stored in the NAT table.
+  - Cannot be accessed from the outside, but can initiate communication with the outside.
+- **DNS**(Domain Name System):
+  - Human-readable domain names(part of URL)(e.g. www.google.com) <-> IP addresses
+
+### URL
+Uniform Resource Locator
+**Protocol + Domain Name + Path + Query String + Fragment Identifier**
+  - **Protocol**: https://
+  - **Domain Name**: www.google.com
+  - **Path**: /path/to/page
+  - **Query String**: ?key=value
+  - **Fragment Identifier**: #section(anchor)
+
+
+### Forward/Redirect
+
+- **Forward(1 Request, 1 Response)**: 
+   - Jump happens **internally on the server**
+   - URL **NO changed**
+   - Request dada **shared**
+   - **Faster** in performance
+   ```java
+   RequestDispatcher dispatcher = request.getRequestDispatcher("page.jsp);
+   dispatcher.forward(request, response);
+   ```
+- **Redirect(2 Requests, 2 Responses)**:
+  - **New request initiated** by the client
+  - URL **changed**
+  - Request data **not shared**
+  - **Slower** in performance
+   ```java
+   response.sendRedirect("page.jsp");
+   ```
+
+
+### Cookies/Sessions
+
+Cookies:
+- Data stored on the **client-side**
+- Server -> `Set-Cookie: key=value` in HTTP response header -> Client
+  Client -> `Cookie: key=value` in HTTP request header -> Server
+```java
+Cookie cookie = new Cookie("key", "value");
+cookie.setMaxAge(60*60*27*7);  // 1 week ; Units in seconds
+response.addCookie(cookie); // Add cookie to the response header
+
+Cookie[] cookies = request.getCookies();
+// Get Cookies from the request header
+```
+
+Sessions:
+- Data stored on the **server-side**
+- **Unique session ID** is generated and stored in a cookie on the client-side
+
+```java
+HttpSession session = request.getSession();
+session.setAttribute("key", "Object value");
+session.setMaxInactiveInterval(60*30); // 30 minutes
+
+String value = (String) session.getAttribute("key");
+```     
+ 
+
+
+
