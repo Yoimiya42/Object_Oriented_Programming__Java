@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <form action="/testServlet", method = "POST">
+      Required:<input type="text", name="Text",placeholder="Text entry field...(10 chars)", maxlength="10" required><br>
+
+      Gender:<input type="radio", name="gender", value="male" checked>Male
+      <input type="radio", name="gender", value="female">Female<br>
+
+      Games:<input type="checkbox", name="entertainment", value="Cyberpunk">Cyberpunk
+      <input type="checkbox", name="entertainment", value="Eldenring">Elden Ring
+      <input type="checkbox", name="entertainment", value="DyingLight">Dying Light
+
+      <textarea name="comment", rows="4", cols="50", placeholder="Entry Comment..."></textarea><br>
+      Collapse：<select name="words">
+        <option value="skeleton">Skeleton</option>
+        <option value="delegate" selected>Delegate</option>
+        <option value="empirically">Empirically</option>
+      </select>
+
+      <button type="submit">Submit!</button>
+      <button type="reset">Reset...</button>
+  </form>
+
+</body>
+</html>
