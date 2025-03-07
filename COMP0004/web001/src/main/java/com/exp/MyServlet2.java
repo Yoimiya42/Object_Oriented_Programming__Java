@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/testServlet"}, loadOnStartup = 1)
+@WebServlet(urlPatterns = {"/testServlet"})
 public class MyServlet2 extends HttpServlet {
 
 	public MyServlet2()
