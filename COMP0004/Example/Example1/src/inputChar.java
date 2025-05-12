@@ -9,6 +9,6 @@ public class inputChar {
             reply = scan.nextLine();
         }while(!reply.equals("q"));
 
-        scan.close()
+        scan.close();
     }
 }

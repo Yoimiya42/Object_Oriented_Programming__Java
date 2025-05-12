@@ -1,0 +1,206 @@
+
+## Concepts
+### 1. Data Types
+- **`Primitives Types`**: Store **actual values** on the **stack**.(assignment: **value** is copied)
+
+- **`Reference Types / Class Types`**: Store **references(memory addresses)** to access objects on the **heap**. (assignment: **reference** is copied, e.g. `String`, `Array`, `Class`)
+  - `Array`: a sequences of values, fixed size, identical type, is not an instance of any class("An object is a class instance *or array*").
+    - `C arrays`: directly accessible sequences of **real memory locations**; no bounds checking(overbound but no error).
+    - `Java arrays`: managed data structure wrapped in an **object**, no access to real memory; strict bound checking.
+  - `2D Array`: an array of **references** to arrays. Each row can have different lengths(jagged array).
+  ```java
+  int[][] arr = new int[3][]; // 3 rows, but varying columns
+  arr[0] = new int[2]; 
+  arr[1] = new int[7]; 
+  arr[2] = new int[4]; 
+  ```
+  - `String`: Immutable sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
+    - `StringBuilder`: Mutable sequence of characters. It is used when you need to modify a string frequently.
+- `Class`: A blueprint/template for creating objects. It defines the `attributes / properties / fields`(implemented as `instance variables`) + `behaviors`(implemented as `instance variables`)
+- `object` is an instance of a class. Objects have `attributes` (`instance variables`) and `behavior` (`methods`), created dynamically in heap memory.
+- `Autoboxing & Unboxing`: Automatic conversion between primitive types and their corresponding object wrapper classes .
+  - `int` -> `Integer`, autoboxing
+  - `Integer` -> `int`, unboxing
+`null reference`: does not refer to any object. If use a method or access a field on a null reference, then `NullPointerException`.
+
+#### Types:
+When the type checking is done?
+- `Static Type`: The type of a variable is known at compile time. (e.g. `int`, `String`, `ArrayList`)
+- `Dynamic Type`: The type of an object is known at runtime. (e.g. `Object`, `ArrayList<String>`)
+The strictness of type rules:
+- `Weakly Typed Language`: The type of a variable can change at runtime. (e.g. JavaScript, Python)
+- `Strongly Typed Language`: The type of a variable cannot change at runtime. (e.g. Java, C#)
+- `Strongly Typed Language`: All variables and expressions has a type that is known at compile time. (`Type Checking` is done at compile time, )
+
+## Exceptions
+**Checked exception**: *Checked at compile time*. The compiler forces you to either handle them using `try-catch` or declare with `throws` keyword(informs the caller to handle or propagate it), otherwise the code won't compile.(i.e. `IOException`, `ClassNotFoundException`)
+
+**Unchecked exception**: *Not checked at compile time*. Occurs **at runtime** due to programming errors, such as `NullPointerException`, `ArrayIndexOutOfBoundsException`, `ArithmeticException`. The compiler does not force you to handle them, better to fix the underlying code issue.
+
+`Exception propagation` is the process where an exception, if not caught in the method it was thrown, is passed up the call stack to the calling method.
+
+`try-with-resources`: resources are automatically closed at the end of the `try` block, whether it completes normally or an exception occurs.  
+---
+- Create a custom exception:
+```java
+public class MyException extends Exception {
+    public MyException(String message){
+        super(message);
+    }
+}
+```
+- `throw` my exception by an *instance of an exception*:
+```java
+public void myMethod() throws MyException {
+    if (condition) {
+        throw new MyException("Error message");
+    } 
+    // Do something
+}
+```
+- Using `try-catch-finally` to handle exception:
+```java
+public void clientMethod() {
+    try {
+        myMethod();
+    } catch (MyException e) {
+        System.out.println("Caught exception: " + e.getMessage());
+    } finally {
+        System.out.println("Finally block always executed");
+    }
+}
+```
+
+
+- `Scope`: defines **where** a variable can be accessed, e.g., `local`, `method`, `class`.
+- `Lifetime`: defines **how long** a variable exists in memory. e.g., 
+  - *local/parameter variables* exist only within the block they are declared; 
+  - *instance variables* belong to an object and exist as long as the object exists.
+- `Garbage Collection`: The JVM automatically reclaims memory occupied by objects that are no longer referenced.
+  
+Class + compiler + type checking + JVM ensures behaviour must conform
+
+
+### OOP concepts
+- `Abstraction`
+- `Encapsulation`
+- `inheritance`
+- `Polymorphism`
+  - `Compile-time polymorphism`: Method overloading (same method name, different parameters)
+  - `Run-time polymorphism`: Method overriding (subclass provides a specific implementation of a method already defined in its superclass)
+    - `Dynamic binding`: The method to be called is determined at runtime based on the object type.
+- `Interface`: A contract that a class must follow. It defines methods that a class must implement but does not provide the implementation itself.
+- `Abstract class`: A class that cannot
+- `override`: A subclass provides a specific implementation of a method already defined in its superclass.
+- `overload`: A class has multiple methods with the same name but different parameters.
+- `final`: A keyword used to declare constants, prevent method overriding, and prevent inheritance of classes.
+- `static`: A keyword used to declare class-level variables and methods that can be accessed without creating an instance of the class.
+- `this`: A reference to the current object. It is used to access instance variables and methods of the current object.
+- `super`: A reference to the superclass. It is used to access superclass methods and
+
+
+---
+-  `Generic`
+- `static language`: 
+- `JVM`
+`escape characters`
+`arguments`: values passed ton a method call.
+`parameters`: variables declared in the method parameters list.
+The parameter variable is initialized to a *copy* (actual value or reference) of the argument value.(Call-by-value, not the variable itself)
+
+
+
+
+## API
+
+### Array
+```java
+int[] arr = new int[10]; // Declare
+int[] arr_ = {1, 2, 3, 4, 5}; // Declare and initialize
+int[][] arr2 = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+}; // 2D array
+
+int len = arr.length; 
+Arrays.sort(arr); 
+Arrays.toString(arr); // Print array
+```
+### String
+```java
+String str = "Yoimiya";
+int len = str.length();
+char ch = str.charAt(0); // Get char at index
+String sub = str.substring(0,3);
+int index = str.indexOf("Yo"); // Get the index where "Yo" occurs first
+boolean isStart = str.startsWith("Y"); // Check if it starts with "Y"
+String replace = str.replace("Y", "A"); // Replace "Y" with "A"
+String[] split = str.split("o"); 
+String lowercase = str.toLowerCase(); 
+boolean isEqual = str.equals("Yoimiya"); 
+int compare = str.compareTo("Yoimiya"); 
+String reverse = new StringBuilder(str).reverse().toString();
+```
+### ArrayList
+```java
+List<String> list = new ArrayList<>(); 
+
+List<String> list_ = Arrays.asList("A", "B", "C"); // Arrays to List
+String[] arr = list_.toArray(); // List to Array
+
+list.add(7, "Yoimiya"); // Add element at specific index
+list.get(7); // Get element at index 0
+list.set(7, "Kazuha"); // Set element at index
+String str = list.remove(7); // Remove and return element at index
+int size = list.size(); // Get size
+boolean contains = list.contains("Y");
+list.indexOf("Y"); // Get index of element
+
+Collections.sort(list); 
+Collections.reverse(list); // Reverse
+```
+
+### HashMap
+```java
+Map<String, Object> map = new HashMap<>();
+map.put("key", "value");
+map.get("key");
+map.remove("key"); // Remove key-value pair
+map.containsKey("key"); // Check if key exists
+map.containsValue("value"); // Check if value exists
+map.size(); 
+
+Set<String> keys = map.keySet(); // Get all keys
+Collection<Object> values = map.values(); // Get all values
+```
+### Math
+```java
+(int)Math.random() * (max - min) + min; 
+// [1,7]：
+(int)Math.random() * (7 - 1) + 1;
+
+Math.abs(-5); 
+Math.max(5, 10);
+Math.min(5, 10);
+Math.pow(2, 3); // 2^3
+Math.sqrt(16); // Square root
+Math.round(3.14); // Round to nearest integer
+
+Integer.parseInt("123"); // Convert String to int
+String.valueOf(123); // Convert int to String
+```
+
+
+```java
+switch (expression) {
+    case value1:
+        // code block
+        break;
+    case value2:
+        // code block
+        break;
+    default:
+        // code block
+}
+```

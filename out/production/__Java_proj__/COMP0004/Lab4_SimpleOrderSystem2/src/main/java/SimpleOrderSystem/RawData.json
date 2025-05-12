@@ -1,0 +1,23 @@
+{
+  "snacks": [
+    {"code": 1001, "name": "Sea Salt Crisps", "shelfLife": 180, "calories": 520.0, "price": 0.98},
+    {"code": 1002, "name": "Bacon, Lettuce, Tomato Sandwich", "shelfLife": 1, "calories": 600.0, "price": 2.75},
+    {"code": 1003, "name": "Spicy Korean Ramen", "shelfLife": 365, "calories": 450.0, "price": 1.21},
+    {"code": 1004, "name": "Scottish Porridge Oats", "shelfLife": 540, "calories": 370.0, "price": 3.75},
+    {"code": 1005, "name": "Dark Chocolate Sandwich Biscuits", "shelfLife": 300, "calories": 500.0, "price": 1.98}
+  ],
+  "dailyNecessities": [
+    {"code": 2001, "name": "Lavender Toilet Roll", "brand": "Andrex", "price": 1.50},
+    {"code": 2002, "name": "Lemon Verbena Washing-Up Liquid", "brand": "Ecover", "price": 2.50},
+    {"code": 2003, "name": "Mint Shower Gel", "brand": "Faith in Nature", "price": 2.15},
+    {"code": 2004, "name": "Oatmeal Soap Bar", "brand": "Dovecote", "price": 0.70},
+    {"code": 2005, "name": "Lavender Mist Air Freshener", "brand": "Air Wick", "price": 1.60}
+  ],
+  "beverages": [
+    {"code": 3001, "name": "Single Malt Scotch Whisky", "volume_weight": 700, "price": 9.80},
+    {"code": 3002, "name": "Scottish Highland Spring Water", "volume_weight": 1500, "price": 0.75},
+    {"code": 3003, "name": "Gold Blend Instant Coffee", "volume_weight": 200, "price": 2.38},
+    {"code": 3004, "name": "Darjeeling Loose Leaf Tea", "volume_weight": 125, "price": 7.58},
+    {"code": 3005, "name": "Freshly Squeezed Orange Juice", "volume_weight": 1000, "price": 1.79}
+  ]
+}

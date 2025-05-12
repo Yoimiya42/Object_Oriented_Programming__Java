@@ -417,7 +417,7 @@ int[] arr2 = Arrays.copyOfRange(arr1, 1, 4); // [3,5,8]
    ```
 2. Formula: Double within [min, max]
    ```java
-   +
+   // +1 is not needed for double
    random.nextDouble() * (max - min) + min;
    Math.random() * (max - min) + min;
    ```
@@ -832,7 +832,7 @@ class Square extends Shape
 On superclass, you can declare a method using `abstract` as a **placeholder** for the method, **without implementation(method body)**, and **must be overridden**(provide specific implementation) in the subclass.  
 
 ```java
-class abstract Shape // contains a abstract method => must be declared as abstract class
+abstract class Shape // contains a abstract method => must be declared as abstract class
 {
    private int x;
    private int y;
