@@ -29,8 +29,7 @@ When the type checking is done?
 - `Dynamic Type`: The type of an object is known at runtime. (e.g. `Object`, `ArrayList<String>`)
 The strictness of type rules:
 - `Weakly Typed Language`: The type of a variable can change at runtime. (e.g. JavaScript, Python)
-- `Strongly Typed Language`: The type of a variable cannot change at runtime. (e.g. Java, C#)
-- `Strongly Typed Language`: All variables and expressions has a type that is known at compile time. (`Type Checking` is done at compile time, )
+- `Strongly Typed Language`: All variables and expressions has a type that is known at compile time, cannot change at runtime.(`Type Checking` is done at compile time. e.g., Java, C++)
 
 ## Exceptions
 **Checked exception**: *Checked at compile time*. The compiler forces you to either handle them using `try-catch` or declare with `throws` keyword(informs the caller to handle or propagate it), otherwise the code won't compile.(i.e. `IOException`, `ClassNotFoundException`)
@@ -86,6 +85,8 @@ Class + compiler + type checking + JVM ensures behaviour must conform
 
 
 ### OOP concepts
+`Abstraction`: Hide the complex implementation details and focusing on the essential features of the object.(e.g. `abstract class`, `interface`)
+`Encapsulation`: Bundle attributes and methods that operate on data into a single unit (class), restrict access to the inner workings, provide a public API to interact.
 `Inheritance`: subclass is a "specialization-of"/"kind-of" superclass, shared `public` and `protected` fields and methods, can add more properties or override methods.
 `Override`:  provides a specific implementation for method already defined in its superclass.
 `Overload`: multiple methods with the same name but different parameters in the same class or subclass.
@@ -107,14 +108,70 @@ Class + compiler + type checking + JVM ensures behaviour must conform
 |**Fields**|All|Only `static final`|
 |**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
 
-- `Abstraction`:
-- `Encapsulation`: 
+`Programming to interface`: depends on abstract types (interface or abstract class) rather than concrete impelementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
 
-- `Polymorphism`
-  - `Compile-time polymorphism`: Method overloading (same method name, different parameters)
-  - `Run-time polymorphism`: Method overriding (subclass provides a specific implementation of a method already defined in its superclass)
-    - `Dynamic binding`: The method to be called is determined at runtime based on the object type.
-    - `static binding`: The method to be called is determined at compile time based on the reference type.
+`Type`: defines a set of possible values and a set of operations (methods) that can be performed on those values.  In Java, classes, interfaces, records, and enums all define types. An object can conform to multiple types.
+
+`Polymorphism`:
+  - `Inheritance polymorphism(Runtime polymorphism)`: 
+    - **Method overriding**
+    - achieved via **Dynamic binding**, method called at **runtime** is determined by the **actual object type**.
+    - **Supertype reference to subtype object**.
+     ```java
+     Animal ani = new Cat(); // Supertype: Animal; Subtype: Cat
+     ani.sound(); // Calls Cat's version at runtime
+     ```
+  - `Ad-hoc polymorphism(Compile-time polymorphism)`:
+    - **Method overloading**
+    - achieved via **Static binding**, method called at **compile time** is determined by the **reference type**(based on method para. types and count).
+    ```java
+    public class MathUtil {
+        public int add(int a, int b);
+        public double add(double a, double b);
+    }
+
+    MathUtil math = new MathUtil();
+    math.add(5, 10); // Calls add(int, int)
+    math.add(5.0, 10.0); // Calls add(double, double)
+    ```
+  - `Parametric polymorphism`:
+    - achieved via **Generic classes and methods**
+      ```java
+       class A <T>{}
+       class B <T extends Comparable<T>>{
+            ArrayList<T> list;
+
+            public T getMethod(T t){
+                return t;
+            }
+       }
+       ```
+`Generic`: code works with any data type, using **type parameters** instead of specific types. It allows for **type safety** and **reusability**.
+  - `invariance`: `List<Integer>` is NOT a subtype of `List<Number>`.
+  - `covariance`: `Integer[]` is a subtype of `Number[]`.
+  - `Type erasure`: The compiler replaces all type parameters with their bounds or `Object` if no bounds are specified.  This means that the generic type information is **not available at runtime**.
+    ```java
+    // In .java file
+    class Box<T> {
+        private T item; // T is unbounded 
+    }
+
+    class Price<T extends Comparable<T>>{
+        private T price; // T is bounded by Comparable
+    }
+
+    // In .class file
+    class Box {
+        private Object item; // T is replaced with Object
+    }
+
+    class Price {
+        private Comparable price; // T is replaced with Comparable
+    }
+    ```
+`<? extends T>`: **upper bound** wildcard, accepts **subtypes** of T.
+`<? super T>`: **lower bound** wildcard, accepts **supertypes** of T.
+`?`: **unbounded** wildcard, accepts any type.
 
 - `Object class`: All classes either directly or indirectly inherit from `Object`. It provides methods like `toString()` and `equals()`.
        
@@ -146,12 +203,7 @@ Class + compiler + type checking + JVM ensures behaviour must conform
   ```
 
 ---
--  `Generic`
-- `static language`: 
-- `JVM`
-`escape characters`
-
-
+## File I/O
 
 
 
