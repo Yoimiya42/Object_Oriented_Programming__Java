@@ -14,7 +14,7 @@
   arr[1] = new int[7]; 
   arr[2] = new int[4]; 
   ```
-  - `String`: Immutable sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
+  - `String`: *Immutable* sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
     - `StringBuilder`: Mutable sequence of characters. It is used when you need to modify a string frequently.
 - `Class`: A blueprint/template for creating objects. It defines the `attributes / properties / fields`(implemented as `instance variables`) + `behaviors`(implemented as `instance variables`)
 - `object` is an instance of a class. Objects have `attributes` (`instance variables`) and `behavior` (`methods`), created dynamically in heap memory.
@@ -40,8 +40,9 @@ The strictness of type rules:
 `Exception propagation` is the process where an exception, if not caught in the method it was thrown, is passed up the call stack to the calling method.
 
 `try-with-resources`: resources are automatically closed at the end of the `try` block, whether it completes normally or an exception occurs.  
+
 ---
-- Create a custom exception:
+Create a custom exception:
 ```java
 public class MyException extends Exception {
     public MyException(String message){
@@ -49,7 +50,7 @@ public class MyException extends Exception {
     }
 }
 ```
-- `throw` my exception by an *instance of an exception*:
+- `throw` myException by an *instance of an exception* in a method:
 ```java
 public void myMethod() throws MyException {
     if (condition) {
@@ -58,7 +59,8 @@ public void myMethod() throws MyException {
     // Do something
 }
 ```
-- Using `try-catch-finally` to handle exception:
+- Using `try-catch-finally` to handle exception in the client code:
+- `finally` block always executes, regardless of whether an exception was thrown or caught.
 ```java
 public void clientMethod() {
     try {
@@ -71,7 +73,9 @@ public void clientMethod() {
 }
 ```
 
-
+- `arguments`: values passed ton a method call.
+- `parameters`: variables declared in the method parameters list.
+The parameter variable is initialized to a *copy* (actual value or reference) of the argument value.(Call-by-value, not the variable itself)
 - `Scope`: defines **where** a variable can be accessed, e.g., `local`, `method`, `class`.
 - `Lifetime`: defines **how long** a variable exists in memory. e.g., 
   - *local/parameter variables* exist only within the block they are declared; 
@@ -82,31 +86,71 @@ Class + compiler + type checking + JVM ensures behaviour must conform
 
 
 ### OOP concepts
-- `Abstraction`
-- `Encapsulation`
-- `inheritance`
+`Inheritance`: subclass is a "specialization-of"/"kind-of" superclass, shared `public` and `protected` fields and methods, can add more properties or override methods.
+`Override`:  provides a specific implementation for method already defined in its superclass.
+`Overload`: multiple methods with the same name but different parameters in the same class or subclass.
+
+`abstract method`: method without implementation, defined in an abstract class or interface, must be implemented by concrete class.
+`static variable/method`:
+  - belongs to the class itself, *not to any specific instance*. 
+  - It can be accessed without creating an instance of the class. 
+    ```java
+    Math.sqrt(4); // static method
+    Math.MAX_VALUE; // static variable
+    ```
+  - It is **shared** among all instances of the class.
+
+||`abstract class`|`interface`|
+|:----------------:|:-----------:|:----------------:|
+|**Design**|a "specialization of" rel. with sharing partial implementation| a "can-do" rel. capability or contract| 
+|**Instantiation**|No|No|
+|**Fields**|All|Only `static final`|
+|**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
+
+- `Abstraction`:
+- `Encapsulation`: 
+
 - `Polymorphism`
   - `Compile-time polymorphism`: Method overloading (same method name, different parameters)
   - `Run-time polymorphism`: Method overriding (subclass provides a specific implementation of a method already defined in its superclass)
     - `Dynamic binding`: The method to be called is determined at runtime based on the object type.
-- `Interface`: A contract that a class must follow. It defines methods that a class must implement but does not provide the implementation itself.
-- `Abstract class`: A class that cannot
-- `override`: A subclass provides a specific implementation of a method already defined in its superclass.
-- `overload`: A class has multiple methods with the same name but different parameters.
-- `final`: A keyword used to declare constants, prevent method overriding, and prevent inheritance of classes.
-- `static`: A keyword used to declare class-level variables and methods that can be accessed without creating an instance of the class.
-- `this`: A reference to the current object. It is used to access instance variables and methods of the current object.
-- `super`: A reference to the superclass. It is used to access superclass methods and
+    - `static binding`: The method to be called is determined at compile time based on the reference type.
 
+- `Object class`: All classes either directly or indirectly inherit from `Object`. It provides methods like `toString()` and `equals()`.
+       
+- `final class`: cannot be inherited.
+- `final method`: cannot be overridden.
+- `record`: final class with final fields.
+  ```java
+  public record Person(String name, int age){
+        // All fields are final and private
+        public void OptionalCustomMethods(){
+            // Custom methods
+        }
+        .name() // getter
+        .age() // getter
+        .toString() // toString
+        .equals() // equals
+
+        public boolean equals(Object obj){
+            // Compare to itself
+            if (this == obj) return true;
+            // Check if obj is null or not the same class
+            if (obj == null || this.getClass() != obj.getClass())
+                return false;
+            Person other = (Person) obj;
+            return this.name.equals(other.name) 
+                && this.age == other.age;
+        }
+  }
+  ```
 
 ---
 -  `Generic`
 - `static language`: 
 - `JVM`
 `escape characters`
-`arguments`: values passed ton a method call.
-`parameters`: variables declared in the method parameters list.
-The parameter variable is initialized to a *copy* (actual value or reference) of the argument value.(Call-by-value, not the variable itself)
+
 
 
 
