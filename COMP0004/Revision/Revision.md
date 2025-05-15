@@ -92,14 +92,14 @@ public void clientMethod() {
 
 ---
 ### OOP concepts
-`Abstraction`: Hide the complex implementation details and focusing on the essential features of the object.(e.g. `abstract class`, `interface`)
-`Encapsulation`: Bundle attributes and methods that operate on data into a single unit (class), restrict access to the inner workings, provide a public API to interact.
-`Inheritance`: subclass is a "specialization-of"/"kind-of" superclass, shared `public` and `protected` fields and methods, can add more properties or override methods.
-`Override`:  provides a specific implementation for method already defined in its superclass.
-`Overload`: multiple methods with the same name but different parameters in the same class or subclass.
+- `Abstraction`: Hide the complex implementation details and focusing on the essential features of the object.(e.g. `abstract class`, `interface`)
+- `Encapsulation`: Bundle attributes and methods that operate on data into a single unit (class), restrict access to the inner workings, provide a public API to interact.
+- `Inheritance`: subclass is a "specialization-of"/"kind-of" superclass, shared `public` and `protected` fields and methods, can add more properties or override methods.
+- `Override`:  provides a specific implementation for method already defined in its superclass.
+- `Overload`: multiple methods with the same name but different parameters in the same class or subclass.
 
-`abstract method`: method without implementation, defined in an abstract class or interface, must be implemented by concrete class.
-`static variable/method`:
+- `abstract method`: method without implementation, defined in an abstract class or interface, must be implemented by concrete class.
+- `static variable/method`:
   - belongs to the class itself, *not to any specific instance*. 
   - It can be accessed without creating an instance of the class. 
     ```java
@@ -115,11 +115,11 @@ public void clientMethod() {
 |**Fields**|All|Only `static final`|
 |**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
 
-`Programming to interface`: depends on abstract types (interface or abstract class) rather than concrete impelementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
+- `Programming to interface`: depends on abstract types (interface or abstract class) rather than concrete impelementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
 
-`Type`: defines a set of possible values and a set of operations (methods) that can be performed on those values.  In Java, classes, interfaces, records, and enums all define types. An object can conform to multiple types.
+- `Type`: defines a set of possible values and a set of operations (methods) that can be performed on those values.  In Java, classes, interfaces, records, and enums all define types. An object can conform to multiple types.
 
-`Polymorphism`:
+- `Polymorphism`:
   - `Inheritance polymorphism(Runtime polymorphism)`: 
     - **Method overriding**
     - achieved via **Dynamic binding**, method called at **runtime** is determined by the **actual object type**.
@@ -153,7 +153,7 @@ public void clientMethod() {
             }
        }
        ```
-`Generic`: code works with any data type, using **type parameters** instead of specific types. It allows for **type safety** and **reusability**.
+- `Generic`: code works with any data type, using **type parameters** instead of specific types. It allows for **type safety** and **reusability**.
   - `invariance`: `List<Integer>` is NOT a subtype of `List<Number>`.
   - `covariance`: `Integer[]` is a subtype of `Number[]`.
   - `Type erasure`: The compiler replaces all type parameters with their bounds or `Object` if no bounds are specified.  This means that the generic type information is **not available at runtime**.
@@ -176,9 +176,9 @@ public void clientMethod() {
         private Comparable price; // T is replaced with Comparable
     }
     ```
-`<? extends T>`: **upper bound** wildcard, accepts **subtypes** of T.
-`<? super T>`: **lower bound** wildcard, accepts **supertypes** of T.
-`?`: **unbounded** wildcard, accepts any type.
+- `<? extends T>`: **upper bound** wildcard, accepts **subtypes** of T.
+- `<? super T>`: **lower bound** wildcard, accepts **supertypes** of T.
+- `?`: **unbounded** wildcard, accepts any type.
 
 - `Object class`: All classes either directly or indirectly inherit from `Object`. It provides methods like `toString()` and `equals()`.
        
@@ -209,10 +209,10 @@ public void clientMethod() {
   }
   ```
 
-`couple`: the degree of dependency between two modules.
-`cohesion`: the degree which a module is focused on a single task.
+- `couple`: the degree of dependency between two modules.
+- `cohesion`: the degree which a module is focused on a single task.
 
-`private` members can be inherited by children classes but can **not be accessed**(`protected` can do) in the child class(need to use `getter` and `setter` methods).
+- `private` members can be inherited by children classes but can **not be accessed**(`protected` can do) in the child class(need to use `getter` and `setter` methods).
 
 
 
