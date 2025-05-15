@@ -29,10 +29,23 @@ The strictness of type rules:
 - `Weakly Typed Language`: The type of a variable **can change at runtime**. (e.g. JavaScript, Python)
 - `Strongly Typed Language`: All variables and expressions has a type that is known at compile time, **cannot change at runtime**.(`Type Checking` is done at compile time. e.g., Java, C++)
 
-`==`:
+- `==`:
   - for primitive types: compares the **actual values**.
   - for reference types: compares the **memory addresses** of the objects.
-`equals()`: compares the contents of the objects. Can be overridden in a class to provide custom equality logic.
+- `equals()`: compares the contents of the objects. Can be overridden in a class to provide custom equality logic.
+
+
+- `arguments`: values passed ton a method call.
+- `parameters`: variables declared in the method parameters list.
+The parameter variable is initialized to a *copy* (actual value or reference) of the argument value.(Call-by-value, not the variable itself)
+- `Scope`: defines **where** a variable can be accessed, e.g., `local`, `method`, `class`.
+- `Lifetime`: defines **how long** a variable exists in memory. e.g., 
+  - *local/parameter variables* exist only within the block they are declared; 
+  - *instance variables* belong to an object and exist as long as the object exists.
+- `Garbage Collection`: The JVM automatically reclaims memory occupied by objects that are no longer referenced.
+  
+Class + compiler + type checking + JVM ensures behaviour must conform to the type system.
+- `JVM`: Java Virtual Machine, an abstract machine that enables a computer to run Java programs. It provides a **runtime environment** and **converts Java bytecode into machine code**.
 
 ---
 ## Exceptions
@@ -75,16 +88,7 @@ public void clientMethod() {
 }
 ```
 
-- `arguments`: values passed ton a method call.
-- `parameters`: variables declared in the method parameters list.
-The parameter variable is initialized to a *copy* (actual value or reference) of the argument value.(Call-by-value, not the variable itself)
-- `Scope`: defines **where** a variable can be accessed, e.g., `local`, `method`, `class`.
-- `Lifetime`: defines **how long** a variable exists in memory. e.g., 
-  - *local/parameter variables* exist only within the block they are declared; 
-  - *instance variables* belong to an object and exist as long as the object exists.
-- `Garbage Collection`: The JVM automatically reclaims memory occupied by objects that are no longer referenced.
-  
-Class + compiler + type checking + JVM ensures behaviour must conform
+
 
 ---
 ### OOP concepts
@@ -271,6 +275,7 @@ Arrays.toString(arr); // Print array
 ### String
 ```java
 String str = "Yoimiya";
+
 int len = str.length();
 char ch = str.charAt(0); // Get char at index
 String sub = str.substring(0,3);
@@ -281,6 +286,7 @@ String[] split = str.split("o");
 String lowercase = str.toLowerCase(); 
 boolean isEqual = str.equals("Yoimiya"); 
 int compare = str.compareTo("Yoimiya"); 
+
 String reverse = new StringBuilder(str).reverse().toString();
 ```
 ### ArrayList
