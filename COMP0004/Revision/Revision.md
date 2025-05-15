@@ -1,6 +1,5 @@
-
-## Concepts
-### 1. Data Types
+Created by [@Yoimiya] on 2025-05-15
+### Data Types
 - **`Primitives Types`**: Store **actual values** on the **stack**.(assignment: **value** is copied)
 
 - **`Reference Types / Class Types`**: Store **references(memory addresses)** to access objects on the **heap**. (assignment: **reference** is copied, e.g. `String`, `Array`, `Class`)
@@ -23,14 +22,19 @@
   - `Integer` -> `int`, unboxing
 `null reference`: does not refer to any object. If use a method or access a field on a null reference, then `NullPointerException`.
 
-#### Types:
 When the type checking is done?
 - `Static Type`: The type of a variable is known at compile time. (e.g. `int`, `String`, `ArrayList`)
 - `Dynamic Type`: The type of an object is known at runtime. (e.g. `Object`, `ArrayList<String>`)
 The strictness of type rules:
-- `Weakly Typed Language`: The type of a variable can change at runtime. (e.g. JavaScript, Python)
-- `Strongly Typed Language`: All variables and expressions has a type that is known at compile time, cannot change at runtime.(`Type Checking` is done at compile time. e.g., Java, C++)
+- `Weakly Typed Language`: The type of a variable **can change at runtime**. (e.g. JavaScript, Python)
+- `Strongly Typed Language`: All variables and expressions has a type that is known at compile time, **cannot change at runtime**.(`Type Checking` is done at compile time. e.g., Java, C++)
 
+`==`:
+  - for primitive types: compares the **actual values**.
+  - for reference types: compares the **memory addresses** of the objects.
+`equals()`: compares the contents of the objects. Can be overridden in a class to provide custom equality logic.
+
+---
 ## Exceptions
 **Checked exception**: *Checked at compile time*. The compiler forces you to either handle them using `try-catch` or declare with `throws` keyword(informs the caller to handle or propagate it), otherwise the code won't compile.(i.e. `IOException`, `ClassNotFoundException`)
 
@@ -40,7 +44,6 @@ The strictness of type rules:
 
 `try-with-resources`: resources are automatically closed at the end of the `try` block, whether it completes normally or an exception occurs.  
 
----
 Create a custom exception:
 ```java
 public class MyException extends Exception {
@@ -83,7 +86,7 @@ The parameter variable is initialized to a *copy* (actual value or reference) of
   
 Class + compiler + type checking + JVM ensures behaviour must conform
 
-
+---
 ### OOP concepts
 `Abstraction`: Hide the complex implementation details and focusing on the essential features of the object.(e.g. `abstract class`, `interface`)
 `Encapsulation`: Bundle attributes and methods that operate on data into a single unit (class), restrict access to the inner workings, provide a public API to interact.
@@ -202,11 +205,53 @@ Class + compiler + type checking + JVM ensures behaviour must conform
   }
   ```
 
+`couple`: the degree of dependency between two modules.
+`cohesion`: the degree which a module is focused on a single task.
+
+`private` members can be inherited by children classes but can **not be accessed**(`protected` can do) in the child class(need to use `getter` and `setter` methods).
+
+
+
 ---
-## File I/O
+## File Handling
+
+ReadFile:
+```java
+public static void readFile(String filePath){
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+        String line;
+        while ((line = reader.readline()) != null){
+            System.out.println(line);
+        }
+    }catch (IOException e){
+        System.out.println("Error reading file: " + e.getMessage());    
+    }
+}
+```
+WriteFile:
+```java
+public static void writeFile(String filePath, String content){
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))){
+        writer.write(content);
+        writer.newLine(); // Add a new line
+        writer.flush(); // Ensure all data is written
+    }catch (IOException e){
+        System.out.println("Error writing file: " + e.getMessage());
+    }
+}
+```
+
+`ByteStream`: `InputStream` and `OutputStream` abstract classes, used for reading and writing binary data. (e.g. `FileInputStream`, `FileOutputStream`)
+`CharacterStream`: `Reader` and `Writer` abstract classes, used for reading and writing character data. (e.g. `FileReader`, `FileWriter`, `BufferedReader`, `BufferedWriter`)
 
 
+- `package`: a collection of `interface`, `enum` and `class`, provides a **namespace** to avoid name conflicts. 
+  - non-private (public or protected) classes, fields and methods have a Package Scope, which means it can be only accessed by other classes inside the same Package.
 
+- `module`: a collection of packages, provides a **module system** to manage **dependencies** and access control.
+- `JAR`: Java Archive, compress multiple `.class`, related resources and `metadata` into a single file. 
+
+---
 ## API
 
 ### Array
@@ -300,3 +345,11 @@ switch (expression) {
         // code block
 }
 ```
+
+- `Recursion` pros and cons:
+  - Pros:
+    - Break down complex problems into smaller problems.
+    - **More readable** and easier to understand.
+  - Cons:
+    - Can lead to **stack overflow** if the recursion depth is too high.
+    - May consume **more memory** due to maintaining multiple function calls on the stack.
