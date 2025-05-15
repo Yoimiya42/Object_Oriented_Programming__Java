@@ -3,7 +3,7 @@ Created by [@Yoimiya] on 2025-05-15
 - **`Primitives Types`**: Store **actual values** on the **stack**.(assignment: **value** is copied)
 
 - **`Reference Types / Class Types`**: Store **references(memory addresses)** to access objects on the **heap**. (assignment: **reference** is copied, e.g. `String`, `Array`, `Class`)
-  - `Array`: a sequences of values, fixed size, identical type, is not an instance of any class("An object is a class instance *or array*").
+  1. `Array`: a sequences of values, fixed size, identical type, is not an instance of any class("An object is a class instance *or array*").
     - `C arrays`: directly accessible sequences of **real memory locations**; no bounds checking(overbound but no error).
     - `Java arrays`: managed data structure wrapped in an **object**, no access to real memory; strict bound checking.
   - `2D Array`: an array of **references** to arrays. Each row can have different lengths(jagged array).
@@ -13,14 +13,14 @@ Created by [@Yoimiya] on 2025-05-15
   arr[1] = new int[7]; 
   arr[2] = new int[4]; 
   ```
-  - `String`: *Immutable* sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
+  2. `String`: *Immutable* sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
     - `StringBuilder`: Mutable sequence of characters. It is used when you need to modify a string frequently.
-- `Class`: A blueprint/template for creating objects. It defines the `attributes / properties / fields`(implemented as `instance variables`) + `behaviors`(implemented as `instance variables`)
-- `object` is an instance of a class. Objects have `attributes` (`instance variables`) and `behavior` (`methods`), created dynamically in heap memory.
-- `Autoboxing & Unboxing`: Automatic conversion between primitive types and their corresponding object wrapper classes .
-  - `int` -> `Integer`, autoboxing
-  - `Integer` -> `int`, unboxing
-`null reference`: does not refer to any object. If use a method or access a field on a null reference, then `NullPointerException`.
+  3. `Class`: A blueprint/template for creating objects. It defines the `attributes / properties / fields`(implemented as `instance variables`) + `behaviors`(implemented as `methods`).
+     - `object` is an instance of a class. Objects have `attributes` (`instance variables`) and `behavior` (`methods`), created dynamically in heap memory.
+     - `Autoboxing & Unboxing`: Automatic conversion between primitive types and their corresponding object wrapper classes .
+       - `int` -> `Integer`, autoboxing
+       - `Integer` -> `int`, unboxing
+     `null reference`: does not refer to any object. If use a method or access a field on a null reference, then `NullPointerException`.
 
 When the type checking is done?
 - `Static Type`: The type of a variable is known at compile time. (e.g. `int`, `String`, `ArrayList`)
