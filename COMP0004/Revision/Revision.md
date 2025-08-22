@@ -110,10 +110,7 @@ public void clientMethod() {
 
 ||`abstract class`|`interface`|
 |:----------------:|:-----------:|:----------------:|
-|**Design**|a "specialization of" rel. with sharing partial implementation; 
-- serves as a blueprint for other classes;
-- includes concrete methods and fields to provide shared functionality;
-- defines `abstract` methods that enforcing specific implementation| a "can-do" rel. capability or contract| 
+|**Design**|a "specialization of" rel. with sharing partial implementation; - serves as a blueprint for other classes; - includes concrete methods and fields to provide shared functionality; - defines `abstract` methods that enforcing specific implementation| a "can-do" rel. capability or contract| 
 |**Instantiation**|No|No|
 |**Fields**|All|Only `static final`|
 |**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
