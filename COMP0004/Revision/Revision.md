@@ -115,8 +115,7 @@ public void clientMethod() {
 |**Fields**|All|Only `static final`|
 |**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
 
-- `Programming to interface`: depends on abstract types (interface or abstract class) rather than concrete impelementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
-
+- `Programming to interface`: depends on abstraction(interface or abstract class) rather than concrete implementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
 - `Type`: defines a set of possible values and a set of operations (methods) that can be performed on those values.  In Java, classes, interfaces, records, and enums all define types. An object can conform to multiple types.
 
 - `Polymorphism`:
