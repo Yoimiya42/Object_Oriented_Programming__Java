@@ -3,7 +3,7 @@ Created by [@Yoimiya] on 2025-05-15
 - **`Primitives Types`**: Store **actual values** on the **stack**.(assignment: **value** is copied)
 
 - **`Reference Types / Class Types`**: Store **references(memory addresses)** to access objects on the **heap**. (assignment: **reference** is copied, e.g. `String`, `Array`, `Class`)
-  1. `Array`: a sequences of values, fixed size, identical type, is not an instance of any class("An object is a class instance *or array*").
+  1. `Array`: a sequences of values, fixed size, identical type.
     - `C arrays`: directly accessible sequences of **real memory locations**; no bounds checking(overbound but no error).
     - `Java arrays`: managed data structure wrapped in an **object**, no access to real memory; strict bound checking.
   - `2D Array`: an array of **references** to arrays. Each row can have different lengths(jagged array).
@@ -13,9 +13,9 @@ Created by [@Yoimiya] on 2025-05-15
   arr[1] = new int[7]; 
   arr[2] = new int[4]; 
   ```
-  2. `String`: *Immutable* sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
+  1. `String`: *Immutable* sequence of characters. Strings are **objects** in Java, but they are often treated as primitive types for convenience.
     - `StringBuilder`: Mutable sequence of characters. It is used when you need to modify a string frequently.
-  3. `Class`: A blueprint/template for creating objects. It defines the `attributes / properties / fields`(implemented as `instance variables`) + `behaviors`(implemented as `methods`).
+  2. `Class`: A blueprint/template for creating objects. It defines the `attributes / properties / fields`(implemented as `instance variables`) + `behaviors`(implemented as `methods`).
      - `object` is an instance of a class. Objects have `attributes` (`instance variables`) and `behavior` (`methods`), created dynamically in heap memory.
      - `Autoboxing & Unboxing`: Automatic conversion between primitive types and their corresponding object wrapper classes .
        - `int` -> `Integer`, autoboxing
@@ -110,7 +110,10 @@ public void clientMethod() {
 
 ||`abstract class`|`interface`|
 |:----------------:|:-----------:|:----------------:|
-|**Design**|a "specialization of" rel. with sharing partial implementation| a "can-do" rel. capability or contract| 
+|**Design**|a "specialization of" rel. with sharing partial implementation; 
+- serves as a blueprint for other classes;
+- includes concrete methods and fields to provide shared functionality;
+- defines `abstract` methods that enforcing specific implementation| a "can-do" rel. capability or contract| 
 |**Instantiation**|No|No|
 |**Fields**|All|Only `static final`|
 |**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
@@ -245,7 +248,7 @@ public static void writeFile(String filePath, String content){
 }
 ```
 
-`ByteStream`: `InputStream` and `OutputStream` abstract classes, used for reading and writing binary data. (e.g. `FileInputStream`, `FileOutputStream`)
+`ByteStream`: `InputStream` and `OutputStream` abstract classes, used for reading and writing binary data. (e.g. `FileInputStream`, `FileOutputStream`)  
 `CharacterStream`: `Reader` and `Writer` abstract classes, used for reading and writing character data. (e.g. `FileReader`, `FileWriter`, `BufferedReader`, `BufferedWriter`)
 
 
