@@ -260,7 +260,7 @@ public static void writeFile(String filePath, String content){
 
 - `module`: a collection of packages, provides a **module system** to manage **dependencies** and access control.
 - `JAR`: Java Archive, compress multiple `.class`, related resources and `metadata` into a single file. 
-
+- `JUnit Testing` following an "Arrange-Act-Assert" pattern to test components individually to ensure they work correctly. 
 ---
 ## API
 
@@ -343,7 +343,6 @@ Math.round(3.14); // Round to nearest integer
 Integer.parseInt("123"); // Convert String to int
 String.valueOf(123); // Convert int to String
 ```
-
 
 ```java
 switch (expression) {
