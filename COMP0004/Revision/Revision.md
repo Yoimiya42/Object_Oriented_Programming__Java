@@ -49,7 +49,7 @@ Class + compiler + type checking + JVM ensures behaviour must conform to the typ
 
 ---
 ## Exceptions
-**Checked exception**: *Checked at compile time*. The compiler forces you to either handle them using `try-catch` or declare with `throws` keyword(informs the caller to handle or propagate it), otherwise the code won't compile.(i.e. `IOException`, `ClassNotFoundException`)
+**Checked exception**: *Checked at compile time*. The compiler forces you to handle them using `try-catch` and declare with `throws` keyword(informs the caller to handle or propagate it), otherwise the code won't compile.(i.e. `IOException`, `ClassNotFoundException`)
 
 **Unchecked exception**: *Not checked at compile time*. Occurs **at runtime** due to programming errors, such as `NullPointerException`, `ArrayIndexOutOfBoundsException`, `ArithmeticException`. The compiler does not force you to handle them, better to fix the underlying code issue.
 
@@ -110,10 +110,17 @@ public void clientMethod() {
 
 ||`abstract class`|`interface`|
 |:----------------:|:-----------:|:----------------:|
-|**Design**|a "specialization of" rel. with sharing partial implementation; - serves as a blueprint for other classes; - includes concrete methods and fields to provide shared functionality; - defines `abstract` methods that enforcing specific implementation| a "can-do" rel. capability or contract| 
+|**Design**|a "specialization of" rel. with sharing partial implementation; - serves as a blueprint for other classes; - includes concrete methods and fields to provide shared functionality; - defines `abstract` methods that enforcing specific implementation| a "can-do" rel. It's like a capability or contract, defining a set of methods(rules) that a class must conform to| 
 |**Instantiation**|No|No|
 |**Fields**|All|Only `static final`|
 |**Methods**|concrete and `abstract` | `abstract` + (`default` method with concrete implementation, override optionally)|
+
+- Pros of Interface and Cons of Abstract class:
+  1. one class can implement multiple interfaces, more flexible 
+  2. emphasizes "behavior" and "capability", easier to extend.
+  - 
+- Cons of Interface and Pros of Abstract class:
+  - cannot share common code(fields, concrete method can be inherited) among related classes, increased code duplication.
 
 - `Programming to interface`: depends on abstraction(interface or abstract class) rather than concrete implementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
 - `Type`: defines a set of possible values and a set of operations (methods) that can be performed on those values.  In Java, classes, interfaces, records, and enums all define types. An object can conform to multiple types.

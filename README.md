@@ -1033,7 +1033,7 @@ Tuple<String, Integer> tuple = new Tuple<>("Yoimiya", 42);
 
 ## Interface
 
-Integer is a set of *requirements* for classes that want to conform to the interfaces.
+Interface is a set of *requirements* for classes that want to conform to the interfaces.
 
 ### Define a Interface
 ```java
