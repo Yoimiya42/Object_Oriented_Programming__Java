@@ -125,6 +125,9 @@ public void clientMethod() {
 - `Programming to interface`: depends on abstraction(interface or abstract class) rather than concrete implementation (decouple from concrete class). Enhances the maintainability and extensibility of the code.
 - `Type`: defines a set of possible values and a set of operations (methods) that can be performed on those values.  In Java, classes, interfaces, records, and enums all define types. An object can conform to multiple types.
 
+- `binding`: link a method call to actual method code that will be executed.
+  - `Dynamic binding` - `runtime binding` - `Inheritance Polymorphism` - `method overriding`
+  - `Static binding` - `compile-time binding` - `Ad-hoc Polymorphism` - `method overloading`
 - `Polymorphism`:
   - `Inheritance polymorphism(Runtime polymorphism)`: 
     - **Method overriding**
@@ -190,7 +193,8 @@ public void clientMethod() {
        
 - `final class`: cannot be inherited.
 - `final method`: cannot be overridden.
-- `record`: final class with final fields.
+- `record`: final class with final fields. "immutable objects". DAO(data as object)
+  
   ```java
   public record Person(String name, int age){
         // All fields are final and private
